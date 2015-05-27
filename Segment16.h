@@ -3,20 +3,18 @@
 
 #include "Arduino.h"
 #include <FastLED.h>
-#include "Letter.h"
-
-#define LETTERS_COUNT 2
+#include "Sign.h"
+#include "Effects.h"
 
 class Segment16 {
   public:
-    CRGB *leds;
     Segment16();
-    uint16_t pixelCount();
-    Letter *letters[LETTERS_COUNT];
+    Sign sign;
+    CRGB *leds;
     void show(void);
 
   private:
-    uint16_t _pixel_count;
+    Effects effects;
 };
 
 #endif

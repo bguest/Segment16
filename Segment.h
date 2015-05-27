@@ -6,11 +6,13 @@
 
 class Segment {
   public:
+    Segment();
     Segment(uint8_t length);
-    Pixel pixels[];
+    Pixel *pixels[4];
     bool isOn;
     uint16_t pixelCount();
     void toArray(CRGB array[], uint16_t &currIdx);
+    void setColor(CRGB color);
 
   private:
     uint8_t _length;

@@ -17,15 +17,24 @@ Sign::Sign(void){
   }
   //uint16_t pixel_count = this -> pixelCount();
 
-  characters[0] = 'A';
-  characters[1] = 'B';
+  characters[0] = 'H';
+  characters[1] = 'I';
 };
+
+void Sign::pushChar(char character){
+  if( binarySegsForChar(character) == 0xFFFF ){ return; }
+
+  for(uint8_t i=0; i< LETTERS_COUNT - 1; i++){
+    characters[i] = characters[i+1];
+  }
+  characters[LETTERS_COUNT-1] = character;
+}
 
 uint16_t Sign::pixelCount(){
 
-  //if(_pixel_count > 0){
-    //return _pixel_count;
-  //}
+  if(_pixel_count > 0){
+    return _pixel_count;
+  }
 
   uint16_t pixel_count = 0;
   for(uint8_t i = 0; i < LETTERS_COUNT; i++){

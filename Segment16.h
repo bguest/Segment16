@@ -9,8 +9,10 @@
 class Segment16 {
   public:
     Segment16();
+    void pushChar(uint32_t character);
     Sign sign;
     CRGB *leds;
+    void init();
     void show(void);
 
   private:

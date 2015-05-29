@@ -1,7 +1,7 @@
 #include "Converter.h"
 
 uint16_t binarySegsForChar(char character){
-  uint16_t rtn = 0;
+  uint16_t rtn = 0xFFFF;
   switch(character){
     case ' ':
             //0123456789012345
@@ -116,13 +116,16 @@ uint16_t binarySegsForChar(char character){
       rtn = 0b1100110000001100; break;
     case '~':
             //0123456789012345
-      rtn = 0b0010000100000011; break;
+      rtn = 0b0010001000000011; break;
     case '.':
             //0123456789012345
       rtn = 0b0000011000100010; break;
     case '!':
             //0123456789012345
-      rtn = 0b1100000000000000; break;
+      rtn = 0b0011000000000000; break;
+    case '|':
+            //0123456789012345
+      rtn = 0b0000001100000000; break;
     case '"':
             //0123456789012345
       rtn = 0b0100000000010000; break;
@@ -143,6 +146,9 @@ uint16_t binarySegsForChar(char character){
       rtn = 0b0000000010000100; break;
     case '*':
             //0123456789012345
+      rtn = 0b0000000011111111; break;
+    case '+':
+            //0123456789012345
       rtn = 0b0000000000110011; break;
     case '-':
             //0123456789012345
@@ -152,16 +158,13 @@ uint16_t binarySegsForChar(char character){
       rtn = 0b0000000000001100; break;
     case ':':
             //0123456789012345
-      rtn = 0b0000000000010100; break;
+      rtn = 0b0000000000110000; break;
     case ';':
             //0123456789012345
-      rtn = 0b0000000000000000; break;
+      rtn = 0b0000000000010100; break;
     case ',':
             //0123456789012345
       rtn = 0b0000000000000100; break;
-    case '+':
-            //0123456789012345
-      rtn = 0b0000000000000000; break;
     case '<':
             //0123456789012345
       rtn = 0b0000000001001010; break;

@@ -22,6 +22,7 @@ Sign::Sign(void){
 };
 
 void Sign::pushChar(char character){
+  Serial.print(character);
   if( binarySegsForChar(character) == 0xFFFF ){ return; }
 
   for(uint8_t i=0; i< LETTERS_COUNT - 1; i++){

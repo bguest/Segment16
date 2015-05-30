@@ -5,10 +5,7 @@
 #define CLOCK_PIN 11
 
 Segment16::Segment16(void){
-  //uint16_t pixel_count = sign.pixelCount();
-  //leds = new CRGB[pixel_count];
-  //leds = new CRGB[89];
-  //FastLED.addLeds<WS2801, DATA_PIN, CLOCK_PIN, RGB>(leds, pixel_count);
+  isInsertMode = false;
 };
 
 void Segment16::init(){
@@ -18,9 +15,12 @@ void Segment16::init(){
 }
 
 void Segment16::pushChar(uint32_t character){
-  bool isEffectsKey = effects.pushChar(character);
-  if(!isEffectsKey){
+  if( this -> decideInput(character) ){ return; } // Don't push character if its an insert key
+
+  if(isInsertMode){
     sign.pushChar(character);
+  }else{
+    effects.pushChar(character);
   }
 }
 
@@ -34,3 +34,19 @@ void Segment16::show(void){
   }
   FastLED.show();
 };
+
+bool Segment16::decideInput(char newInput){
+  for(uint8_t i=0; i< SAVED_INPUT_COUNT-1; i++){
+    input[i] = input[i+1];
+  }
+  input[SAVED_INPUT_COUNT-1] = newInput;
+
+  bool esc = newInput == 0x1B || (input[0] == 'k' && input[1] == 'j');
+  if(isInsertMode && esc ){
+    isInsertMode = false;
+  }else if(!isInsertMode && newInput == 'i'){
+    isInsertMode = true;
+    return true;
+  }
+  return false;
+}

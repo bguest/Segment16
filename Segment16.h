@@ -6,6 +6,8 @@
 #include "Sign.h"
 #include "Effects.h"
 
+#define SAVED_INPUT_COUNT 2
+
 class Segment16 {
   public:
     Segment16();
@@ -16,6 +18,9 @@ class Segment16 {
     void show(void);
 
   private:
+    char input[SAVED_INPUT_COUNT];
+    bool decideInput(char input);
+    bool isInsertMode;
     Effects effects;
 };
 

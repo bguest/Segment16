@@ -8,8 +8,9 @@
 #define TEXT_EFFECTS_COUNT 2
 
 #define SOLID_COLORS 0
-#define HUE_FADE 1
-#define COLOR_EFFECTS_COUNT 2
+#define SOLID_FADE 1
+#define RANDOM_FADE 2
+#define COLOR_EFFECTS_COUNT 3
 
 #define LAYER_COUNT 2     // 0: Foreground 1:Background
 
@@ -17,6 +18,7 @@ class Effects {
   public:
     Effects();
     void pushChar(char character);
+    void signWasUpdated(Sign &sign);
     uint8_t textEffect;
     uint8_t colorEffect[LAYER_COUNT];
     void run(Sign &sign);
@@ -30,8 +32,8 @@ class Effects {
     uint32_t period;
     uint32_t clock;
     uint8_t effectValue1;   // RandomOn count
-    int16_t effectValue2;   // Hue Step for color fade
-    int16_t effectValue3;   // BG Hue Step for color fade
+    int16_t effectValue2;   // Cycles to Random Converge
+    int16_t effectValue3;   // 
 
     void reset();
     void setDefaults();
@@ -45,13 +47,16 @@ class Effects {
     int16_t increaseSpeed(uint8_t layer);
     int16_t decreaseSpeed(uint8_t layer);
     int16_t incSegSpeed(bool isPositive, uint8_t layer);
+    int16_t incRandomSpeed(bool isPositive, uint8_t layer);
 
     void basicTyping(Sign &sign); // TEXT EFFECTS
     void randomOn(Sign &sign);
     void off(Sign &sign);
 
     void solidColor(Sign &sign, uint8_t layer);  // Color Effects
-    void hueFade(Sign &sign, uint8_t layer);
+    void solidFade(Sign &sign, uint8_t layer);
+    void randomFade(Sign &sign, uint8_t layer);
+    void recalculateSpeeds(Sign &sign);
 };
 
 #endif

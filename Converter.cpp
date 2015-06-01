@@ -14,7 +14,7 @@ uint16_t binarySegsForChar(char character){
       rtn = 0b0011000000001000; break;
     case '2':
             //0123456789012345
-      rtn = 0b1110110100000011; break;
+      rtn = 0b1110111000000011; break;
     case '3':
             //0123456789012345
       rtn = 0b1111110000000001; break;
@@ -134,7 +134,7 @@ uint16_t binarySegsForChar(char character){
       rtn = 0b1101110100110011; break;
     case '%':
             //0123456789012345
-      rtn = 0b1001100110110011; break;
+      rtn = 0b1001100100111111; break;
     case '\'':
             //0123456789012345
       rtn = 0b0000000000001000; break;

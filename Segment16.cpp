@@ -19,6 +19,7 @@ void Segment16::pushChar(uint32_t character){
 
   if(isInsertMode){
     sign.pushChar(character);
+    effects.signWasUpdated(sign);
   }else{
     effects.pushChar(character);
   }

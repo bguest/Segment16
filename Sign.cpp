@@ -7,8 +7,6 @@ Sign::Sign(void){
     {2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2}
   };
 
-  uint16_t curr = 0;
-
   for(uint16_t i=0; i < LETTERS_COUNT; i++){
     letters[i] = new Letter(lengths[i]);
     for(uint16_t j=0; j<16; j++){

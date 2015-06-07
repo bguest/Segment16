@@ -3,66 +3,62 @@
 #define PERIOD_STEP 3
 
 #include "Effects.h"
+#include "effects/Effect.cpp"
+#include "effects/RandomOn.cpp"
+#include "effects/BasicTyping.cpp"
+#include "effects/SolidColor.cpp"
+#include "effects/SolidFade.cpp"
+#include "effects/RandomFade.cpp"
 
 Effects::Effects(){
+  for(uint8_t i=0; i<LAYER_COUNT; i++){
+    colorEffect[i] = &solidColor;
+    cColorEffect[i] = SOLID_COLORS;
+  }
+  cTextEffect = BASIC_TYPING;
+  textEffect = &basicTyping;
   this -> reset();
 }
 
 void Effects::run(Sign &sign){
-  switch(textEffect){
-    case BASIC_TYPING: this -> basicTyping(sign); break;
-    case RANDOM_ON: this -> randomOn(sign); break;
-  }
+
+  textEffect -> run(sign, clock, 0);
 
   for(uint8_t i=0; i<LAYER_COUNT; i++){
-    switch(colorEffect[i]){
-      case SOLID_COLORS: this -> solidColor(sign, i); break;
-      case SOLID_FADE: this -> solidFade(sign, i); break;
-      case RANDOM_FADE: this -> randomFade(sign, i); break;
-    }
+    colorEffect[i] -> run(sign, clock, i);
   }
   clock ++;
 }
 
-
 void Effects::pushChar(char character){
+
+  switch(character){
+    case '0':
+      curLayer = 0;
+      Serial.println("Layer 0");
+      return;
+    case '1':
+      curLayer = 1;
+      Serial.println("Layer 1");
+      return;
+  }
+
+  if( textEffect -> pushChar(character, 0) ){ return; }
+  if( colorEffect[curLayer] -> pushChar(character, curLayer) ){ return; }
+
   int32_t val = 0;
   switch(character){
     case 'R': this -> reset(); break;
     //case 'r': this -> randomize(); break;
-    case 'q': clock = 0; break;   //Queue Button
-    case 'k': val = period -= PERIOD_STEP; break;
-    case 'j': val = period += PERIOD_STEP; break;
-
-    case '1': val = (effectValue1++); break;
-    case '!': val = (effectValue1--); break;
-    case '2': val = (effectValue2++); break;
-    case '@': val = (effectValue2--); break;
-    case '3': val = (effectValue3++); break;
-    case '#': val = (effectValue3--); break;
-
-    case 'f': val = this -> increaseSpeed(0); break;
-    case 's': val = this -> decreaseSpeed(0); break;
-    case 'F': val = this -> increaseSpeed(1); break;
-    case 'S': val = this -> decreaseSpeed(1); break;
+    case 'g': clock = 1; break;   //Queue Button
+    case 't': clock = 0; break;   //Step Button
 
     case '<': val = this -> prevTextEffect(); break;
     case '>': val = this -> nextTextEffect(); break;
 
-    case 'l': val = this -> prevColorEffect(0); break;
-    case 'h': val = this -> nextColorEffect(0); break;
-    case 'L': val = this -> prevColorEffect(1); break;
-    case 'H': val = this -> nextColorEffect(1); break;
+    case 'l': val = this -> prevColorEffect(curLayer); break;
+    case 'h': val = this -> nextColorEffect(curLayer); break;
 
-    case 'c': val = color[0].hue += HUE_STEP; break;
-    case 'C': val = color[1].hue += HUE_STEP; break;
-    case 'v': val = color[0].saturation += VALUE_STEP; break;
-    case 'V': val = color[1].saturation += VALUE_STEP; break;
-
-    case 'b': val = color[0].value += VALUE_STEP; break;
-    case 'd': val = color[0].value -= VALUE_STEP; break;
-    case 'B': val = color[1].value += VALUE_STEP; break;
-    case 'D': val = color[1].value -= VALUE_STEP; break;
   }
   Serial.print(character);
   Serial.print(": ");
@@ -73,117 +69,86 @@ void Effects::pushChar(char character){
 // Called when new letters pushed to sign
 void Effects::signWasUpdated(Sign &sign){
   this -> run(sign);
-  if(colorEffect[0] == RANDOM_FADE || colorEffect[1] == RANDOM_FADE){
-    this -> recalculateSpeeds(sign);
+  textEffect -> signWasUpdated(sign);
+  for(uint8_t i=0; i<LAYER_COUNT; i++){
+    colorEffect[i] -> signWasUpdated(sign);
   }
 }
 
 void Effects::reset(){
-  textEffect = BASIC_TYPING;
-  period = 100;
+  curLayer = 0;
   clock = 0;
-  effectValue1 = 1;
-  effectValue2 = 800;
-  effectValue3 = 1;
-  for(uint8_t i=0; i<LAYER_COUNT; i++){
-    colorEffect[i] = SOLID_COLORS;
-    color[i] = CHSV(128*i,255,255);
-    fadeHue[i] = 0;
-    fadeSpeed[i] = (-20*i)+10;
-  }
-  this -> incRandomSpeed(true, 0);
-
-}
-
-int16_t Effects::increaseSpeed(uint8_t layer){
-  int16_t val = 0;
-  switch(colorEffect[layer]){
-    case RANDOM_FADE: val = this -> incRandomSpeed(true, layer); break;
-    case SOLID_FADE: val = this -> incSegSpeed(true, layer); break;
-  }
-  return val;
-}
-
-int16_t Effects::decreaseSpeed(uint8_t layer){
-  int16_t val = 0;
-  switch(colorEffect[layer]){
-    case RANDOM_FADE: val = this -> incRandomSpeed(false, layer); break;
-    case SOLID_FADE: val = this -> incSegSpeed(false, layer);
-  }
-  return val;
-}
-
-int16_t Effects::incRandomSpeed(bool isPositive, uint8_t layer){
-  int16_t val = this -> incSegSpeed(isPositive, layer);
-
-  int16_t mn = min(fadeSpeed[0], fadeSpeed[1]);
-  int16_t mx = max(fadeSpeed[0], fadeSpeed[1]);
-  for(uint8_t i=0; i < 16*LETTERS_COUNT; i++){
-    segSpeed[i] = random(mn, mx);
-  }
-  return val;
-}
-
-int16_t Effects::incSegSpeed(bool isPositive, uint8_t layer){
-  if(isPositive){
-    fadeSpeed[layer]++;
-  }else{
-    fadeSpeed[layer]--;
-  }
-  return fadeSpeed[layer];
-}
-
-void Effects::basicTyping(Sign &sign){
-  uint8_t letters_count = sign.letterCount();
-
-  // Set Characters
-  for(uint8_t i=0; i < letters_count; i++){
-    char current_char = sign.characters[i];
-    sign.letters[i] -> setChar(current_char);
-  }
-}
-
-void Effects::off(Sign &sign){
-  uint16_t seg_count = sign.segmentCount();
-  for(uint16_t i=0; i<seg_count; i++){
-    sign.segments[i] -> isOn = false;
-  }
-}
-
-void Effects::randomOn(Sign &sign){
-  uint16_t seg_count = sign.segmentCount();
-  if( clock % period == 0){
-    this -> off(sign);
-    for(uint8_t i = 0; i < effectValue1; i++){
-      uint8_t rand = random(0,seg_count);
-      sign.segments[rand] -> isOn = true;
-    }
+  textEffect -> reset();
+  for(uint8_t i=1; i<LAYER_COUNT; i++){
+    colorEffect[i] -> reset();
   }
 }
 
 uint8_t Effects::nextTextEffect(){
-  textEffect++;
-  return textEffect = textEffect % TEXT_EFFECTS_COUNT;
+  cTextEffect++;
+  cTextEffect = cTextEffect % TEXT_EFFECTS_COUNT;
+  this -> updateTextEffect();
+  return cTextEffect;
 }
+
 uint8_t Effects::prevTextEffect(){
-  textEffect--;
-  return textEffect = textEffect % TEXT_EFFECTS_COUNT;
+  cTextEffect--;
+  cTextEffect = cTextEffect % TEXT_EFFECTS_COUNT;
+  this -> updateTextEffect();
+  return cTextEffect;
+}
+
+void Effects::updateTextEffect(){
+  switch(cTextEffect){
+    case RANDOM_ON:
+      textEffect = &randomOn;
+      Serial.println("Random On");
+      break;
+    case BASIC_TYPING:
+      textEffect = &basicTyping;
+      Serial.println("Basic Typing");
+      break;
+    default:
+      textEffect = &nullEffect;
+      Serial.println("ERROR");
+  }
 }
 
 uint8_t Effects::nextColorEffect(uint8_t ci){
-  colorEffect[ci]++;
-  return colorEffect[ci] = colorEffect[ci] % COLOR_EFFECTS_COUNT;
+  cColorEffect[ci]++;
+  cColorEffect[ci] = cColorEffect[ci] % COLOR_EFFECTS_COUNT;
+  this -> updateColorEffect(ci);
+  return cColorEffect[ci];
 }
 uint8_t Effects::prevColorEffect(uint8_t ci){
-  if(colorEffect[ci] == 0){
-    colorEffect[ci] = COLOR_EFFECTS_COUNT - 1;
+  if(cColorEffect[ci] == 0){
+    cColorEffect[ci] = COLOR_EFFECTS_COUNT - 1;
   }else{
-    colorEffect[ci]--;
-    colorEffect[ci] = colorEffect[ci] % COLOR_EFFECTS_COUNT;
+    cColorEffect[ci]--;
+    cColorEffect[ci] = cColorEffect[ci] % COLOR_EFFECTS_COUNT;
   }
-  return colorEffect[ci];
+  this -> updateColorEffect(ci);
+  return cColorEffect[ci];
 }
 
+void Effects::updateColorEffect(uint8_t ci){
+  switch(cColorEffect[ci]){
+    case SOLID_COLORS:
+      colorEffect[ci] = &solidColor;
+      Serial.println("Solid Color");
+      break;
+    case RANDOM_FADE:
+      colorEffect[ci] = &randomFade;
+      Serial.println("Random Fade");
+      break;
+    case SOLID_FADE:
+      colorEffect[ci] = &solidFade;
+      Serial.println("Solid Fade");
+      break;
+  }
+}
+
+/*
 void Effects::solidColor(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
 
@@ -196,6 +161,7 @@ void Effects::solidColor(Sign &sign, uint8_t ci){
     }
   }
 }
+
 
 void Effects::solidFade(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
@@ -244,3 +210,4 @@ void Effects::recalculateSpeeds(Sign &sign){
     segSpeed[i] = (hue_final[ci] - segHue[i])/effectValue2;
   }
 }
+*/

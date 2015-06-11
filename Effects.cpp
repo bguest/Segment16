@@ -5,6 +5,7 @@
 #include "Effects.h"
 #include "effects/Effect.cpp"
 #include "effects/RandomOn.cpp"
+#include "effects/Counter.cpp"
 #include "effects/BasicTyping.cpp"
 #include "effects/SolidColor.cpp"
 #include "effects/SolidFade.cpp"
@@ -109,6 +110,10 @@ void Effects::updateTextEffect(){
       textEffect = &basicTyping;
       Serial.println("Basic Typing");
       break;
+    case COUNTER:
+      textEffect = &counter;
+      Serial.println("Counter, keys:[]kj");
+      break;
     default:
       textEffect = &nullEffect;
       Serial.println("ERROR");
@@ -149,66 +154,3 @@ void Effects::updateColorEffect(uint8_t ci){
   }
 }
 
-/*
-void Effects::solidColor(Sign &sign, uint8_t ci){
-  uint16_t seg_count = sign.segmentCount();
-
-  bool on = (ci == 0);
-
-  for(uint16_t i=0; i< seg_count; i++){
-    Segment currSeg = *sign.segments[i];
-    if(currSeg.isOn == on){
-      currSeg.setColor(color[ci]);
-    }
-  }
-}
-
-
-void Effects::solidFade(Sign &sign, uint8_t ci){
-  uint16_t seg_count = sign.segmentCount();
-  CHSV clr = color[ci];
-
-  fadeHue[ci] += fadeSpeed[ci];
-  clr.hue = (uint8_t)(fadeHue[ci] >> 8);
-
-  bool on = (ci == 0);
-
-  for(uint8_t i=0; i < seg_count; i++){
-    Segment currSeg = *sign.segments[i];
-    if(currSeg.isOn == on){
-      currSeg.setColor(clr);
-    }
-  }
-}
-
-void Effects::randomFade(Sign &sign, uint8_t ci){
-  uint16_t seg_count = sign.segmentCount();
-  CHSV clr = color[ci];
-
-  bool on = (ci == 0);
-
-  for(uint8_t i=0; i < seg_count; i++){
-    Segment currSeg = *sign.segments[i];
-    if(currSeg.isOn == on){
-      segHue[i] += segSpeed[i];
-      clr.hue = (uint8_t)(segHue[i] >> 8);
-      currSeg.setColor(clr);
-    }
-  }
-}
-
-void Effects::recalculateSpeeds(Sign &sign){
-  uint16_t seg_count = sign.segmentCount();
-  uint16_t hue_final[LAYER_COUNT];
-
-  for(uint8_t i=0; i<LAYER_COUNT; i++){
-    hue_final[i] = (uint16_t)(color[i].hue << 8);
-  }
-
-  for(uint16_t i=0; i< seg_count; i++){
-    Segment currSeg = *sign.segments[i];
-    uint8_t ci = currSeg.isOn ? 0 : 1;
-    segSpeed[i] = (hue_final[ci] - segHue[i])/effectValue2;
-  }
-}
-*/

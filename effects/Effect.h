@@ -11,7 +11,12 @@ class Effect{
     virtual bool pushChar(char character, uint8_t layer);
     virtual void reset();
     virtual void signWasUpdated(Sign &sign);
-    virtual void run(Sign &sign, uint32_t clock, uint8_t layer);
+    virtual void run(Sign &sign, uint8_t layer);
     void off(Sign &sign);
+  protected:
+    bool shouldRun();
+    bool useCharForTiming(char character);
+    unsigned long lastRun;
+    uint16_t cycleTime;
 };
 #endif

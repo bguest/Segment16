@@ -9,7 +9,7 @@ void SolidColor::reset(){
     color[i] = CHSV(128*i,255,255);
   }
 }
-void SolidColor::run(Sign &sign, uint32_t clock, uint8_t ci){
+void SolidColor::run(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
 
   bool on = (ci == 0);

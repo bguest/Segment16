@@ -10,6 +10,8 @@
 #include "effects/SolidFade.cpp"
 #include "effects/RandomFade.cpp"
 
+const uint16_t CYCLE_TIME = 5;
+
 Effects::Effects(){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     colorEffect[i] = &solidColor;
@@ -21,13 +23,15 @@ Effects::Effects(){
 }
 
 void Effects::run(Sign &sign){
+  unsigned long time = millis();
+  if(time - lastRun < CYCLE_TIME){ return; }
+  lastRun = time;
 
-  textEffect -> run(sign, clock, 0);
+  textEffect -> run(sign, 0);
 
   for(uint8_t i=0; i<LAYER_COUNT; i++){
-    colorEffect[i] -> run(sign, clock, i);
+    colorEffect[i] -> run(sign, i);
   }
-  clock ++;
 }
 
 void Effects::pushChar(char character){
@@ -49,9 +53,6 @@ void Effects::pushChar(char character){
   int32_t val = 0;
   switch(character){
     case 'R': this -> reset(); break;
-    //case 'r': this -> randomize(); break;
-    case 'g': clock = 1; break;   //Queue Button
-    case 't': clock = 0; break;   //Step Button
 
     case '<': val = this -> prevTextEffect(); break;
     case '>': val = this -> nextTextEffect(); break;
@@ -77,7 +78,7 @@ void Effects::signWasUpdated(Sign &sign){
 
 void Effects::reset(){
   curLayer = 0;
-  clock = 0;
+  lastRun = 0;
   textEffect -> reset();
   for(uint8_t i=1; i<LAYER_COUNT; i++){
     colorEffect[i] -> reset();

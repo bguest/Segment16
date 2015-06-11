@@ -13,7 +13,7 @@ void RandomFade::reset(){
   this -> incRandomSpeed(true, 0);
 }
 
-void RandomFade::run(Sign &sign, uint32_t clock, uint8_t ci){
+void RandomFade::run(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
   CHSV clr = color[ci];
 

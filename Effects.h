@@ -40,7 +40,8 @@ class Effects {
     uint8_t cColorEffect[LAYER_COUNT];
     Effect *colorEffect[LAYER_COUNT];
 
-    uint32_t clock;
+    unsigned long lastRun;
+    uint16_t cycleTime;
 
     void reset();
     void setDefaults();

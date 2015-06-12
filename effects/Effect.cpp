@@ -4,12 +4,13 @@
 //const String HueStrng = "Hue:";
 
 Effect::Effect(){
+  lastRun=0;
+  cycleTime=5;
 }
 
 void Effect::reset(){
 }
-
-void Effect::run(Sign &sign, uint32_t clock, uint8_t layer){
+void Effect::run(Sign &sign, uint8_t layer){
 }
 void Effect::signWasUpdated(Sign &sign){
 }
@@ -31,6 +32,29 @@ bool Effect::usedSetting(String desc, int32_t val){
     Serial.print(val);
     Serial.println(" ");
     return true;
+  }
+  return false;
+}
+
+bool Effect::shouldRun(){
+  unsigned long currTime = millis();
+  if(currTime - lastRun > cycleTime){
+    lastRun = currTime;
+    return true;
+  }else{
+    return false;
+  }
+}
+
+bool Effect::useCharForTiming(char character){
+  switch(character){
+    case 't':
+      lastRun = 0;
+      return true;
+    case 'g':
+      lastRun = millis();
+      return true;
+      break;
   }
   return false;
 }

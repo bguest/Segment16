@@ -6,26 +6,31 @@ RandomOn::RandomOn(){
 }
 
 void RandomOn::reset(){
-  period = 100;
   onCount = 1;
+  lastRun = 0;
+  cycleTime = 500;
 }
 
-void RandomOn::run(Sign &sign, uint32_t clock, uint8_t layer){
+void RandomOn::run(Sign &sign, uint8_t layer){
+  if(! this -> shouldRun() ){return;};
+
   uint16_t seg_count = sign.segmentCount();
-  if( clock % period == 0){
-    this -> off(sign);
-    for(uint8_t i = 0; i < onCount; i++){
-      uint8_t rand = random(0,seg_count);
-      sign.segments[rand] -> isOn = true;
-    }
+  this -> off(sign);
+  for(uint8_t i = 0; i < onCount; i++){
+    uint8_t rand = random(0,seg_count);
+    sign.segments[rand] -> isOn = true;
   }
 }
 
 bool RandomOn::pushChar(char character, uint8_t ci){
   int32_t val = 0;
+  const uint8_t periodStep = 25;
+
+  if( this -> useCharForTiming(character) ){ return true;};
+
   switch(character){
-    case 'k': val = period -= PERIOD_STEP; break;
-    case 'j': val = period += PERIOD_STEP; break;
+    case 'k': val = cycleTime -= periodStep; break;
+    case 'j': val = cycleTime += periodStep; break;
     case ']': val = (onCount++); break;
     case '[': val = (onCount--); break;
   }

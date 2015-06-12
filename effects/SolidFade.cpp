@@ -12,7 +12,7 @@ void SolidFade::reset(){
   }
 }
 
-void SolidFade::run(Sign &sign, uint32_t clock, uint8_t ci){
+void SolidFade::run(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
   CHSV clr = color[ci];
 
@@ -43,7 +43,8 @@ bool SolidFade::pushChar(char character, uint8_t ci){
     case 'b': val = color[ci].value += VALUE_STEP; break;
     case 'd': val = color[ci].value -= VALUE_STEP; break;
   }
-  return this -> usedSetting(character, val);
+  String str = String(character);
+  return this -> usedSetting(str, val);
 
 }
 

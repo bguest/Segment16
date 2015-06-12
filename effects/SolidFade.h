@@ -7,7 +7,7 @@ class SolidFade : public Effect{
   public:
     SolidFade();
     void reset();
-    void run(Sign &sign, uint32_t clock, uint8_t layer);
+    void run(Sign &sign, uint8_t layer);
     bool pushChar(char character, uint8_t layer);
   private:
     CHSV color[LAYER_COUNT];

@@ -6,6 +6,7 @@ SolidFade::SolidFade(){
 
 void SolidFade::reset(){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
+    color[i] = CHSV(128*i,255,255);
     fadeHue[i] = 0;
     fadeSpeed[i] = (-20*i)+10;
   }
@@ -42,15 +43,7 @@ bool SolidFade::pushChar(char character, uint8_t ci){
     case 'b': val = color[ci].value += VALUE_STEP; break;
     case 'd': val = color[ci].value -= VALUE_STEP; break;
   }
-
-  if(val > 0){
-    Serial.print(character);
-    Serial.print(": ");
-    Serial.print(val);
-    Serial.println(" ");
-    return true;
-  }
-  return false;
+  return this -> usedSetting(character, val);
 
 }
 

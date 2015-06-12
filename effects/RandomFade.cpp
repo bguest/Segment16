@@ -34,18 +34,18 @@ bool RandomFade::pushChar(char character, uint8_t ci){
   switch(character){
     case 'c': val = color[ci].hue += HUE_STEP; break;
     case 'C': val = color[ci].hue -= HUE_STEP; break;
-    case 'v': val = color[ci].saturation += VALUE_STEP; break;
+    case 'v': val = color[ci].saturation -= VALUE_STEP; break;
     case 'V': val = color[ci].saturation += VALUE_STEP; break;
 
     case 'b': val = color[ci].value += VALUE_STEP; break;
     case 'd': val = color[ci].value -= VALUE_STEP; break;
     case 'f': val = this -> incRandomSpeed(true, ci); break;
     case 's': val = this -> incRandomSpeed(false, ci); break;
-    case 'F': val = fadeTime += FADE_TIME_STEP; break;
-    case 'S': val = fadeTime -= FADE_TIME_STEP; break;
+    case 'S': val = fadeTime += FADE_TIME_STEP; break;
+    case 'F': val = fadeTime -= FADE_TIME_STEP; break;
   }
 
-  if(val > 0){
+  if(val != 0){
     Serial.print(character);
     Serial.print(": ");
     Serial.print(val);

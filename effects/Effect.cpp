@@ -1,6 +1,8 @@
 
 #include "Effect.h"
 
+//const String HueStrng = "Hue:";
+
 Effect::Effect(){
 }
 
@@ -20,4 +22,15 @@ void Effect::off(Sign &sign){
   for(uint16_t i=0; i<seg_count; i++){
     sign.segments[i] -> isOn = false;
   }
+}
+
+bool Effect::usedSetting(String desc, int32_t val){
+  if(val != 0){
+    Serial.print(desc);
+    Serial.print(": ");
+    Serial.print(val);
+    Serial.println(" ");
+    return true;
+  }
+  return false;
 }

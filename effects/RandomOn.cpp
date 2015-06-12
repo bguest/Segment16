@@ -7,6 +7,7 @@ RandomOn::RandomOn(){
 
 void RandomOn::reset(){
   period = 100;
+  onCount = 1;
 }
 
 void RandomOn::run(Sign &sign, uint32_t clock, uint8_t layer){

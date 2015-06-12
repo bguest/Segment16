@@ -18,7 +18,7 @@ void Segment16::pushChar(uint32_t character){
   if( this -> decideInput(character) ){ return; } // Don't push character if its an insert key
 
   if(isInsertMode){
-    sign.pushChar(character);
+    sign.pushChar((char)character, true);
     effects.signWasUpdated(sign);
   }else{
     effects.pushChar(character);

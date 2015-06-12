@@ -26,7 +26,7 @@ void Effect::off(Sign &sign){
 }
 
 bool Effect::usedSetting(String desc, int32_t val){
-  if(val != 0){
+  if(val != 0xFFFF){
     Serial.print(desc);
     Serial.print(": ");
     Serial.print(val);

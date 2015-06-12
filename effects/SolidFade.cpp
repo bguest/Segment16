@@ -30,7 +30,7 @@ void SolidFade::run(Sign &sign, uint8_t ci){
 }
 
 bool SolidFade::pushChar(char character, uint8_t ci){
-  int32_t val = 0;
+  int32_t val = 0xFFFF;
   switch(character){
     case 'f': val = this -> incSegSpeed(true, ci); break;
     case 's': val = this -> incSegSpeed(false, ci); break;
@@ -39,9 +39,8 @@ bool SolidFade::pushChar(char character, uint8_t ci){
     case 'C': val = color[ci].hue -= HUE_STEP; break;
     case 'v': val = color[ci].saturation += VALUE_STEP; break;
     case 'V': val = color[ci].saturation -= VALUE_STEP; break;
-
-    case 'b': val = color[ci].value += VALUE_STEP; break;
-    case 'd': val = color[ci].value -= VALUE_STEP; break;
+    case 'B': val = color[ci].value += VALUE_STEP; break;
+    case 'b': val = color[ci].value -= VALUE_STEP; break;
   }
   String str = String(character);
   return this -> usedSetting(str, val);

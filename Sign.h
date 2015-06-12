@@ -10,7 +10,8 @@ class Sign{
     uint16_t pixelCount();
     uint8_t letterCount();
     uint16_t segmentCount();
-    void pushChar(char character);
+    void pushChar(char);
+    void pushChar(char, bool);
     Letter *letters[LETTERS_COUNT];
     Segment *segments[16*LETTERS_COUNT];
     //Segment *segments[SEGMENTS_COUNT];

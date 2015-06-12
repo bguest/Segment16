@@ -1,18 +1,16 @@
-#ifndef RANDOM_ON_H
-#define RANDOM_ON_H
+#ifndef COUNTER_H
+#define COUNTER_H
 
 #include "Effect.h"
-
-class RandomOn : public Effect{
-
+class Counter : public Effect{
   public:
-    RandomOn();
+    Counter();
     void reset();
     void run(Sign &sign, uint8_t layer);
     bool pushChar(char character, uint8_t layer);
-
   private:
-    uint8_t onCount;
-
+    int8_t step;
+    uint16_t count;
 };
+
 #endif

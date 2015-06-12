@@ -23,7 +23,7 @@ void RandomOn::run(Sign &sign, uint8_t layer){
 }
 
 bool RandomOn::pushChar(char character, uint8_t ci){
-  int32_t val = 0;
+  int32_t val = 0xFFFF;
   const uint8_t periodStep = 25;
 
   if( this -> useCharForTiming(character) ){ return true;};
@@ -35,13 +35,7 @@ bool RandomOn::pushChar(char character, uint8_t ci){
     case '[': val = (onCount--); break;
   }
 
-  if(val > 0){
-    Serial.print(character);
-    Serial.print(": ");
-    Serial.print(val);
-    Serial.println(" ");
-    return true;
-  }
-  return false;
+  String str = String(character);
+  return( this ->usedSetting(str, val) );
 
 }

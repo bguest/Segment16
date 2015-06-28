@@ -38,3 +38,8 @@ void Segment::setColor(CRGB color){
     pixels[i] -> setColor(color);
  }
 }
+void Segment::setPixelXY(uint8_t xys[][2]){
+  for(uint8_t i=0; i< _length; i++){
+    pixels[i] -> setPixelXY(xys[i]);
+  }
+}

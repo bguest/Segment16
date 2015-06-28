@@ -41,10 +41,12 @@ void Effects::pushChar(char character){
     case '2':
       curLayer = 0;
       Serial.println("Layer 2: Letters");
+      Serial1.println("Layer 2: Letters");
       return;
     case '1':
       curLayer = 1;
       Serial.println("Layer 1: Background");
+      Serial1.println("Layer 1: Background");
       return;
   }
 
@@ -66,6 +68,11 @@ void Effects::pushChar(char character){
   Serial.print(": ");
   Serial.print(val);
   Serial.println(" ");
+
+  Serial1.print(character);
+  Serial1.print(": ");
+  Serial1.print(val);
+  Serial1.println(" ");
 }
 
 // Called when new letters pushed to sign
@@ -101,23 +108,26 @@ uint8_t Effects::prevTextEffect(){
 }
 
 void Effects::updateTextEffect(){
+  String desc;
   switch(cTextEffect){
     case RANDOM_ON:
       textEffect = &randomOn;
-      Serial.println("Random On, keys: []kj");
+      desc = "Random On, keys: []kj";
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
-      Serial.println("Basic Typing");
+      desc = "Basic Typing";
       break;
     case COUNTER:
       textEffect = &counter;
-      Serial.println("Counter, keys:[]kj");
+      desc = "Counter, keys:[]kj";
       break;
     default:
       textEffect = &nullEffect;
-      Serial.println("ERROR");
+      desc = "ERROR";
   }
+  Serial.println(desc);
+  Serial1.println(desc);
 }
 
 uint8_t Effects::nextColorEffect(uint8_t ci){

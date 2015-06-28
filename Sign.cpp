@@ -23,7 +23,10 @@ void Sign::pushChar(char character){
   this -> pushChar(character, false);
 }
 void Sign::pushChar(char character, bool shouldPrint){
-  if( shouldPrint ){ Serial.print(character); }
+  if( shouldPrint ){
+    Serial.print(character);
+    Serial1.print(character);
+  }
   if( binarySegsForChar(character) == 0xFFFF ){ return; }
 
   for(uint8_t i=0; i< LETTERS_COUNT - 1; i++){

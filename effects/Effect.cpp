@@ -35,7 +35,7 @@ bool Effect::usedSetting(String desc, int32_t val){
     Serial1.print(desc);
     Serial1.print(": ");
     Serial1.print(val);
-    Serial1.println(" ");
+    Serial1.print('\n');
     return true;
   }
   return false;

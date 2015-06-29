@@ -1,4 +1,4 @@
-#define HUE_STEP 5
+#define HUE_STEP 1
 #define VALUE_STEP 5
 #define PERIOD_STEP 3
 
@@ -41,12 +41,12 @@ void Effects::pushChar(char character){
     case '2':
       curLayer = 0;
       Serial.println("Layer 2: Letters");
-      Serial1.println("Layer 2: Letters");
+      Serial1.print("Layer 2: Letters\n");
       return;
     case '1':
       curLayer = 1;
       Serial.println("Layer 1: Background");
-      Serial1.println("Layer 1: Background");
+      Serial1.print("Layer 1: Background\n");
       return;
   }
 
@@ -55,7 +55,9 @@ void Effects::pushChar(char character){
 
   int32_t val = 0;
   switch(character){
-    case 'R': this -> reset(); break;
+    case 'R':
+      Serial1.print("RESET\n");
+      this -> reset(); break;
 
     case '<': val = this -> prevTextEffect(); break;
     case '>': val = this -> nextTextEffect(); break;
@@ -68,11 +70,6 @@ void Effects::pushChar(char character){
   Serial.print(": ");
   Serial.print(val);
   Serial.println(" ");
-
-  Serial1.print(character);
-  Serial1.print(": ");
-  Serial1.print(val);
-  Serial1.println(" ");
 }
 
 // Called when new letters pushed to sign
@@ -112,7 +109,7 @@ void Effects::updateTextEffect(){
   switch(cTextEffect){
     case RANDOM_ON:
       textEffect = &randomOn;
-      desc = "Random On, keys: []kj";
+      desc = "Random, use:[]kj";
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
@@ -120,14 +117,15 @@ void Effects::updateTextEffect(){
       break;
     case COUNTER:
       textEffect = &counter;
-      desc = "Counter, keys:[]kj";
+      desc = "Counter, use:[]kj";
       break;
     default:
       textEffect = &nullEffect;
       desc = "ERROR";
   }
   Serial.println(desc);
-  Serial1.println(desc);
+  Serial1.print(desc);
+  Serial1.print('\n');
 }
 
 uint8_t Effects::nextColorEffect(uint8_t ci){
@@ -151,15 +149,18 @@ void Effects::updateColorEffect(uint8_t ci){
   switch(cColorEffect[ci]){
     case SOLID_COLORS:
       colorEffect[ci] = &solidColor;
+      Serial1.print("Solid Color\n");
       Serial.println("Solid Color");
       break;
     case RANDOM_FADE:
       colorEffect[ci] = &randomFade;
+      Serial1.print("Random Fade\n");
       Serial.println("Random Fade");
       break;
     case SOLID_FADE:
       colorEffect[ci] = &solidFade;
       Serial.println("Solid Fade");
+      Serial1.print("Solid Fade\n");
       break;
   }
 }

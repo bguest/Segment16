@@ -5,7 +5,7 @@
 
 #include "Sign.h"
 
-const String CYCLE_TIME_STR = "Period (1/Tempo)";
+const String CYCLE_TIME_STR = "(1/Tempo)";
 const String STEP_SIZE_STR = "Step Size";
 const String HUE_STR = "Hue";
 const String SAT_STR = "Saturation";

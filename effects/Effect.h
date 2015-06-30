@@ -6,7 +6,7 @@
 #include "Sign.h"
 
 const String CYCLE_TIME_STR = "(1/Tempo)";
-const String FADE_TIME_STR = "Fade Time";
+const String FADE_SPEED_STR = "Fade Speed";
 const String CONVERGE_TIME_STR = "Converge In";
 const String SET_SEGS_STR = "Turn Segments";
 const String STEP_SIZE_STR = "Step Size";

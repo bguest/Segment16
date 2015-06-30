@@ -31,9 +31,9 @@ bool RandomLetters::pushChar(char character, uint8_t ci){
   if( this -> useCharForTiming(character) ){ return true;};
 
   switch(character){
-    case 'k': val = cycleTime -= periodStep;
+    case 'k': val = (cycleTime -= periodStep);
               desc = CYCLE_TIME_STR; break;
-    case 'j': val = cycleTime += periodStep;
+    case 'j': val = (cycleTime += periodStep);
               desc = CYCLE_TIME_STR; break;
   }
 

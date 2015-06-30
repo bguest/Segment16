@@ -33,6 +33,10 @@ void Sign::pushChar(char character, bool shouldPrint){
     characters[i] = characters[i+1];
   }
   characters[LETTERS_COUNT-1] = character;
+
+  for(uint8_t i=0; i< LETTERS_COUNT; i++){
+    letters[i] -> currentChar = characters[i];
+  }
 }
 
 void Sign::setLayer(uint8_t layer, bool isOn){

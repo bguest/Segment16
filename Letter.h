@@ -42,9 +42,10 @@ class Letter {
     void toArray(CRGB array[], uint16_t &currIdx);
     void setChar(char character);
     void setLayer(uint8_t layer, bool isOn);
+    void setColor(uint8_t layer, CHSV color);
+    char currentChar;
 
   private:
     uint8_t _lengths[16];
-    char currentChar;
 };
 #endif

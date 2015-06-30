@@ -35,21 +35,21 @@ bool SolidFade::pushChar(char character, uint8_t ci){
 
   switch(character){
     case 'f': val = this -> incSegSpeed(true, ci);
-              desc = FADE_TIME_STR; break;
+              desc = FADE_SPEED_STR; break;
     case 's': val = this -> incSegSpeed(false, ci);
-              desc = FADE_TIME_STR; break;
+              desc = FADE_SPEED_STR; break;
 
-    case 'c': val = color[ci].hue += HUE_STEP;
+    case 'c': val = (color[ci].hue += HUE_STEP);
               desc = HUE_STR; break;
-    case 'C': val = color[ci].hue -= HUE_STEP;
-              desc = HUE_STEP; break;
-    case 'v': val = color[ci].saturation += VALUE_STEP;
+    case 'C': val = (color[ci].hue -= HUE_STEP);
+              desc = HUE_STR; break;
+    case 'v': val = (color[ci].saturation += VALUE_STEP);
               desc = SAT_STR; break;
-    case 'V': val = color[ci].saturation -= VALUE_STEP;
+    case 'V': val = (color[ci].saturation -= VALUE_STEP);
               desc = SAT_STR; break;
-    case 'B': val = color[ci].value += VALUE_STEP;
+    case 'B': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
-    case 'b': val = color[ci].value -= VALUE_STEP;
+    case 'b': val = (color[ci].value -= VALUE_STEP);
               desc = VAL_STR; break;
   }
   String str = String(character);

@@ -48,6 +48,16 @@ void Letter::setLayer(uint8_t layer, bool isOn){
   }
 }
 
+void Letter::setColor(uint8_t layer, CHSV color){
+  bool on = (layer == 0);
+  for(uint8_t i=0; i<16; i++){
+    Segment curr_seg = *segments[i];
+    if(curr_seg.isOn == on){
+      curr_seg.setColor(color);
+    }
+  }
+}
+
 void Letter::toArray(CRGB array[], uint16_t &currIdx){
   for(uint16_t i=0; i<16; i++){
     segments[i] -> toArray(array, currIdx);

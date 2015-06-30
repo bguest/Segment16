@@ -9,9 +9,9 @@ void RandomFade::reset(){
   fadeTime = 800;
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     color[i] = CHSV(128*i,255,255);
-    fadeSpeed[i] = (-20*i)+10;
+    fadeSpeed[i] = (-40*i)+20;
   }
-  this -> incRandomSpeed(true, 0);
+  this -> randomizeSpeeds();
 }
 
 void RandomFade::run(Sign &sign, uint8_t ci){
@@ -36,26 +36,28 @@ bool RandomFade::pushChar(char character, uint8_t ci){
   String desc;
 
   switch(character){
-    case 'c': val = color[ci].hue += HUE_STEP;
+    case 'c': val = (color[ci].hue += HUE_STEP);
               desc = HUE_STR; break;
-    case 'C': val = color[ci].hue -= HUE_STEP;
-              desc = HUE_STEP; break;
-    case 'v': val = color[ci].saturation += VALUE_STEP;
+    case 'C': val = (color[ci].hue -= HUE_STEP);
+              desc = HUE_STR; break;
+    case 'v': val = (color[ci].saturation += VALUE_STEP);
               desc = SAT_STR; break;
-    case 'V': val = color[ci].saturation -= VALUE_STEP;
+    case 'V': val = (color[ci].saturation -= VALUE_STEP);
               desc = SAT_STR; break;
-    case 'B': val = color[ci].value += VALUE_STEP;
+    case 'B': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
-    case 'b': val = color[ci].value -= VALUE_STEP;
+    case 'b': val = (color[ci].value -= VALUE_STEP);
               desc = VAL_STR; break;
 
+    case 'r': val = 1; this->randomizeSpeeds();
+              desc = RESET_STR; break;
     case 'f': val = this -> incRandomSpeed(true, ci);
-              desc = FADE_TIME_STR; break;
+              desc = FADE_SPEED_STR; break;
     case 's': val = this -> incRandomSpeed(false, ci);
-              desc = FADE_TIME_STR; break;
-    case 'S': val = fadeTime += FADE_TIME_STEP;
+              desc = FADE_SPEED_STR; break;
+    case 'S': val = (fadeTime += FADE_TIME_STEP);
               desc = CONVERGE_TIME_STR; break;
-    case 'F': val = fadeTime -= FADE_TIME_STEP;
+    case 'F': val = (fadeTime -= FADE_TIME_STEP);
               desc = CONVERGE_TIME_STR; break;
 
   }
@@ -69,13 +71,18 @@ int16_t RandomFade::incRandomSpeed(bool isPositive, uint8_t layer){
   }else{
     fadeSpeed[layer]--;
   }
+  this -> randomizeSpeeds();
+
+  return fadeSpeed[layer];
+}
+
+void RandomFade::randomizeSpeeds(){
 
   int16_t mn = min(fadeSpeed[0], fadeSpeed[1]);
   int16_t mx = max(fadeSpeed[0], fadeSpeed[1]);
   for(uint8_t i=0; i < 16*LETTERS_COUNT; i++){
     segSpeed[i] = random(mn, mx);
   }
-  return fadeSpeed[layer];
 }
 
 // Called when new letters pushed to sign

@@ -14,6 +14,7 @@
 #include "effects/SolidFade.cpp"
 #include "effects/RandomFade.cpp"
 #include "effects/RandomLetters.cpp"
+#include "effects/RainbowLetter.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 
@@ -46,12 +47,12 @@ void Effects::pushChar(char character){
     case '2':
       curLayer = LETTERS_LAYER;
       Serial.println("Layer 2: Letters");
-      Serial1.print("Layer 2: Letters\n");
+      Serial1.print("\nLayer 2: Letters");
       return;
     case '1':
       curLayer = BACKGROUND_LAYER;
       Serial.println("Layer 1: Background");
-      Serial1.print("Layer 1: Background\n");
+      Serial1.print("\nLayer 1: Background");
       return;
   }
 
@@ -61,7 +62,7 @@ void Effects::pushChar(char character){
   int32_t val = 0;
   switch(character){
     case 'R':
-      Serial1.print("RESET\n");
+      Serial1.print("\nRESET");
       this -> reset(); break;
 
     case '<': val = this -> prevTextEffect(); break;
@@ -114,7 +115,7 @@ void Effects::updateTextEffect(){
   switch(cTextEffect){
     case RANDOM_ON:
       textEffect = &randomOn;
-      desc = "Random\nKeys:[]kjor";
+      desc = "Random Segs,\nkeys:[]kjor";
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
@@ -122,19 +123,19 @@ void Effects::updateTextEffect(){
       break;
     case COUNTER:
       textEffect = &counter;
-      desc = "Counter\nKeys:[]kj";
+      desc = "Counter\nkeys:[]kj";
       break;
     case RANDOM_LETTERS:
       textEffect = &randomLetters;
-      desc = "RandLetters\nKeys:kj";
+      desc = "Random Letters\nkeys:kj";
       break;
     default:
       textEffect = &nullEffect;
       desc = "ERROR";
   }
   Serial.println(desc);
-  Serial1.print(desc);
   Serial1.print('\n');
+  Serial1.print(desc);
 }
 
 uint8_t Effects::nextColorEffect(uint8_t ci){
@@ -169,9 +170,13 @@ void Effects::updateColorEffect(uint8_t ci){
       colorEffect[ci] = &solidFade;
       desc = "Solid Fade\nKeys:cCvVbBfs";
       break;
+    case RAINBOW_LETTER:
+      colorEffect[ci] = &rainbowLetter;
+      desc = "Rainbow Letter\nKeys:cCvVbBrefsd";
+      break;
   }
   Serial.println(desc);
-  Serial1.print(desc);
   Serial1.print('\n');
+  Serial1.print(desc);
 }
 

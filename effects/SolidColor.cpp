@@ -6,7 +6,7 @@ SolidColor::SolidColor(){
 
 void SolidColor::reset(){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
-    color[i] = CHSV(128*i,255,255);
+    color[i] = CHSV(128*i,255,255-100*i);
   }
 }
 void SolidColor::run(Sign &sign, uint8_t ci){
@@ -27,17 +27,17 @@ bool SolidColor::pushChar(char character, uint8_t ci){
   String desc;
 
   switch(character){
-    case 'c': val = color[ci].hue += HUE_STEP;
+    case 'c': val = (color[ci].hue += HUE_STEP);
               desc = HUE_STR; break;
-    case 'C': val = color[ci].hue -= HUE_STEP;
-              desc = HUE_STEP; break;
-    case 'v': val = color[ci].saturation += VALUE_STEP;
+    case 'C': val = (color[ci].hue -= HUE_STEP);
+              desc = HUE_STR; break;
+    case 'v': val = (color[ci].saturation += VALUE_STEP);
               desc = SAT_STR; break;
-    case 'V': val = color[ci].saturation -= VALUE_STEP;
+    case 'V': val = (color[ci].saturation -= VALUE_STEP);
               desc = SAT_STR; break;
-    case 'B': val = color[ci].value += VALUE_STEP;
+    case 'B': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
-    case 'b': val = color[ci].value -= VALUE_STEP;
+    case 'b': val = (color[ci].value -= VALUE_STEP);
               desc = VAL_STR; break;
   }
   return(this -> usedSetting(desc, val));

@@ -10,6 +10,7 @@
 #include "effects/SolidFade.h"
 #include "effects/RandomFade.h"
 #include "effects/RandomLetters.h"
+#include "effects/RainbowLetter.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
@@ -20,8 +21,8 @@
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
 #define RANDOM_FADE 2
-#define COLOR_EFFECTS_COUNT 3
-
+#define RAINBOW_LETTER 3
+#define COLOR_EFFECTS_COUNT 4
 
 class Effects {
   public:
@@ -39,6 +40,8 @@ class Effects {
     SolidColor solidColor;
     RandomFade randomFade;
     SolidFade solidFade;
+    RainbowLetter rainbowLetter;
+
     Effect nullEffect;
     uint8_t curLayer;
 

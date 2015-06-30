@@ -14,8 +14,8 @@ class Sign{
     void pushChar(char, bool);
     Letter *letters[LETTERS_COUNT];
     Segment *segments[16*LETTERS_COUNT];
-    //Segment *segments[SEGMENTS_COUNT];
     char characters[LETTERS_COUNT];
+    bool textChanged;
 
   private:
     uint16_t _pixel_count;

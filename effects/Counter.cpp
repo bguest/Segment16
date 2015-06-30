@@ -14,6 +14,7 @@ void Counter::reset(){
 void Counter::run(Sign &sign, uint8_t layer){
   if(! this -> shouldRun() ){return;};
   this -> off(sign);
+  if( step != 0 ){ sign.textChanged = true; }
 
   count += step;
   uint8_t letter_count = sign.letterCount();

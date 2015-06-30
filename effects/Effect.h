@@ -6,10 +6,13 @@
 #include "Sign.h"
 
 const String CYCLE_TIME_STR = "(1/Tempo)";
+const String FADE_TIME_STR = "Fade Time";
+const String CONVERGE_TIME_STR = "Converge In";
 const String STEP_SIZE_STR = "Step Size";
-const String HUE_STR = "Hue";
-const String SAT_STR = "Saturation";
-const String VAL_STR = "Value";
+const String NUMBER_ON_STR = "Number On";
+const String HUE_STR = "Color";
+const String SAT_STR = "Vibrance";
+const String VAL_STR = "Brightness";
 
 class Effect{
   public:

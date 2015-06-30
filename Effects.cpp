@@ -27,6 +27,7 @@ void Effects::run(Sign &sign){
   unsigned long time = millis();
   if(time - lastRun < CYCLE_TIME){ return; }
   lastRun = time;
+  sign.textChanged = false;
 
   textEffect -> run(sign, 0);
 

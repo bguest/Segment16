@@ -12,7 +12,7 @@ Barely. Be gentle, its a work in progress. But in general the keyboard controls 
 
 The way the sign is manipulated is loosely related to the VIM Text Editor. With VIM there are two
 modes, Insert Mode and Normal Mode. **In thses instructions, unless otherwise stated, assume I'm
-talking about pressing keys in Normal mode**.
+talking about pressing keys in normal mode**.
 
 ### Insert Mode
 
@@ -25,7 +25,7 @@ display says `Basic Typing` then press `i` followed by `H` and `I`.
 ### Normal Mode
 
 In normal mode the keys are setup to edit the effects of the sign, color, tempo, different text
-effects. To get to Normal mode from Insert mode either press `<esc>` or type `kj` (`k` followed by
+effects. To get to normal mode from Insert mode either press `<esc>` or type `kj` (`k` followed by
 `j`).
 
 **Example**: If you wanted to change the background to fade through the color spectrum. You would
@@ -39,7 +39,7 @@ complicated by adding effects.  The program is broken into to effects areas. Tex
 Color Effects. Text Effects control what segments are "on". Color Effects control what color the on
 and off segments are.
 
-Generally in Normal mode typing `R` will reset the current effects to some default settings.
+Generally in normal mode typing `R` will reset the current effects to some default settings.
 
 ## Text Effects
 
@@ -114,11 +114,13 @@ To control the layer converge color:
 + `c`/`C`: (Color) Decrease / Increase color Hue:
 + `v`/`V`: (Vibrancy) Decrease / Increase color Saturation:
 
+<!--
+
 # Q + A:
 
 One of my "favorite" things about this project has been all the helpful suggestions that people
 give, free of any effort on their end. If you really want to help. Make a pull request. I imagine
-these questions in the tone of 1983 Valley Girl:
+these questions in the tone of 1997 Valley Girl:
 
 **Q**: Why are their only two letter. It would be way cooler if you had more letters so you could do
 whole worlds.
@@ -142,3 +144,4 @@ effects.
 **Q**: Why not make an iPhone App.
 
 **A**: Lets make it happen! I assume you know Objective-C / Swift ?
+-->

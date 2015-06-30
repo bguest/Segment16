@@ -15,6 +15,7 @@ void RandomFade::reset(){
 }
 
 void RandomFade::run(Sign &sign, uint8_t ci){
+  if( sign.textChanged ){ this -> recalculateSpeeds(sign); }
   uint16_t seg_count = sign.segmentCount();
   CHSV clr = color[ci];
 
@@ -32,23 +33,33 @@ void RandomFade::run(Sign &sign, uint8_t ci){
 
 bool RandomFade::pushChar(char character, uint8_t ci){
   int32_t val = 0xFFFF;
+  String desc;
+
   switch(character){
-    case 'c': val = color[ci].hue += HUE_STEP; break;
-    case 'C': val = color[ci].hue -= HUE_STEP; break;
-    case 'v': val = color[ci].saturation -= VALUE_STEP; break;
-    case 'V': val = color[ci].saturation += VALUE_STEP; break;
-    case 'B': val = color[ci].value += VALUE_STEP; break;
-    case 'b': val = color[ci].value -= VALUE_STEP; break;
+    case 'c': val = color[ci].hue += HUE_STEP;
+              desc = HUE_STR; break;
+    case 'C': val = color[ci].hue -= HUE_STEP;
+              desc = HUE_STEP; break;
+    case 'v': val = color[ci].saturation += VALUE_STEP;
+              desc = SAT_STR; break;
+    case 'V': val = color[ci].saturation -= VALUE_STEP;
+              desc = SAT_STR; break;
+    case 'B': val = color[ci].value += VALUE_STEP;
+              desc = VAL_STR; break;
+    case 'b': val = color[ci].value -= VALUE_STEP;
+              desc = VAL_STR; break;
 
-    case 'f': val = this -> incRandomSpeed(true, ci); break;
-    case 's': val = this -> incRandomSpeed(false, ci); break;
-    case 'S': val = fadeTime += FADE_TIME_STEP; break;
-    case 'F': val = fadeTime -= FADE_TIME_STEP; break;
+    case 'f': val = this -> incRandomSpeed(true, ci);
+              desc = FADE_TIME_STR; break;
+    case 's': val = this -> incRandomSpeed(false, ci);
+              desc = FADE_TIME_STR; break;
+    case 'S': val = fadeTime += FADE_TIME_STEP;
+              desc = CONVERGE_TIME_STR; break;
+    case 'F': val = fadeTime -= FADE_TIME_STEP;
+              desc = CONVERGE_TIME_STR; break;
+
   }
-
-  String str = String(character);
-  return( this->usedSetting(str, val));
-
+  return( this->usedSetting(desc, val));
 }
 
 int16_t RandomFade::incRandomSpeed(bool isPositive, uint8_t layer){

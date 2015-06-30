@@ -51,7 +51,5 @@ bool RandomOn::pushChar(char character, uint8_t ci){
     case '[': val = (onCount--);
               desc = NUMBER_ON_STR; break;
   }
-
   return( this ->usedSetting(desc, val) );
-
 }

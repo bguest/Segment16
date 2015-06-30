@@ -9,11 +9,13 @@
 #include "effects/SolidColor.h"
 #include "effects/SolidFade.h"
 #include "effects/RandomFade.h"
+#include "effects/RandomLetters.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
 #define COUNTER 2
-#define TEXT_EFFECTS_COUNT 3
+#define RANDOM_LETTERS 3
+#define TEXT_EFFECTS_COUNT 4
 
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
@@ -32,6 +34,8 @@ class Effects {
     RandomOn randomOn;
     BasicTyping basicTyping;
     Counter counter;
+    RandomLetters randomLetters;
+
     SolidColor solidColor;
     RandomFade randomFade;
     SolidFade solidFade;

@@ -13,6 +13,7 @@
 #include "effects/SolidColor.cpp"
 #include "effects/SolidFade.cpp"
 #include "effects/RandomFade.cpp"
+#include "effects/RandomLetters.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 
@@ -113,7 +114,7 @@ void Effects::updateTextEffect(){
   switch(cTextEffect){
     case RANDOM_ON:
       textEffect = &randomOn;
-      desc = "Random, use:[]kj";
+      desc = "Random\nKeys:[]kjor";
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
@@ -121,7 +122,11 @@ void Effects::updateTextEffect(){
       break;
     case COUNTER:
       textEffect = &counter;
-      desc = "Counter, use:[]kj";
+      desc = "Counter\nKeys:[]kj";
+      break;
+    case RANDOM_LETTERS:
+      textEffect = &randomLetters;
+      desc = "RandLetters\nKeys:kj";
       break;
     default:
       textEffect = &nullEffect;
@@ -150,22 +155,23 @@ uint8_t Effects::prevColorEffect(uint8_t ci){
 }
 
 void Effects::updateColorEffect(uint8_t ci){
+  String desc;
   switch(cColorEffect[ci]){
     case SOLID_COLORS:
       colorEffect[ci] = &solidColor;
-      Serial1.print("Solid Color\n");
-      Serial.println("Solid Color");
+      desc = "Solid Color\nKeys:cCvVbB";
       break;
     case RANDOM_FADE:
       colorEffect[ci] = &randomFade;
-      Serial1.print("Random Fade\n");
-      Serial.println("Random Fade");
+      desc = "Random Fade\nKeys:cCvVbBfsFS";
       break;
     case SOLID_FADE:
       colorEffect[ci] = &solidFade;
-      Serial.println("Solid Fade");
-      Serial1.print("Solid Fade\n");
+      desc = "Solid Fade\nKeys:cCvVbBfs";
       break;
   }
+  Serial.println(desc);
+  Serial1.print(desc);
+  Serial1.print('\n');
 }
 

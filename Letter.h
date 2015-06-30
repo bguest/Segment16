@@ -41,6 +41,7 @@ class Letter {
     uint16_t pixelCount();
     void toArray(CRGB array[], uint16_t &currIdx);
     void setChar(char character);
+    void setLayer(uint8_t layer, bool isOn);
 
   private:
     uint8_t _lengths[16];

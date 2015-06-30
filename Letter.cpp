@@ -21,6 +21,7 @@ uint16_t Letter::pixelCount(){
 }
 
 void Letter::setChar(char character){
+  currentChar = character;
   uint16_t binarySegs = binarySegsForChar(character);
                   //0123456789012345
   uint16_t mask = 0b1000000000000000;
@@ -33,6 +34,18 @@ void Letter::setChar(char character){
     mask = mask >> 1;
   }
 
+}
+void Letter::setLayer(uint8_t layer, bool isOn){
+  uint16_t binarySegs = binarySegsForChar(currentChar);
+  if(layer == 1){ binarySegs = ~binarySegs;}
+                  //0123456789012345
+  uint16_t mask = 0b1000000000000000;
+  for(uint8_t i=0; i<16; i++){
+    if(mask & binarySegs){
+      segments[i]->isOn = isOn;
+    }
+    mask = mask >> 1;
+  }
 }
 
 void Letter::toArray(CRGB array[], uint16_t &currIdx){

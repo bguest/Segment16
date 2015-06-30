@@ -8,11 +8,13 @@
 const String CYCLE_TIME_STR = "(1/Tempo)";
 const String FADE_TIME_STR = "Fade Time";
 const String CONVERGE_TIME_STR = "Converge In";
+const String SET_SEGS_STR = "Turn Segments";
 const String STEP_SIZE_STR = "Step Size";
 const String NUMBER_ON_STR = "Number On";
 const String HUE_STR = "Color";
 const String SAT_STR = "Vibrance";
 const String VAL_STR = "Brightness";
+const String RESET_STR = "Reset";
 
 class Effect{
   public:

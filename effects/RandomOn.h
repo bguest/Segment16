@@ -13,6 +13,8 @@ class RandomOn : public Effect{
 
   private:
     uint8_t onCount;
+    bool shouldReset;
+    bool turnOn;
 
 };
 #endif

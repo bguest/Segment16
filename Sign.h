@@ -12,6 +12,7 @@ class Sign{
     uint16_t segmentCount();
     void pushChar(char);
     void pushChar(char, bool);
+    void setLayer(uint8_t layer, bool isOn);
     Letter *letters[LETTERS_COUNT];
     Segment *segments[16*LETTERS_COUNT];
     char characters[LETTERS_COUNT];

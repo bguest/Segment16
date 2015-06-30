@@ -2,6 +2,9 @@
 #define VALUE_STEP 5
 #define PERIOD_STEP 3
 
+#define LETTERS_LAYER 0
+#define BACKGROUND_LAYER 1
+
 #include "Effects.h"
 #include "effects/Effect.cpp"
 #include "effects/RandomOn.cpp"
@@ -40,12 +43,12 @@ void Effects::pushChar(char character){
 
   switch(character){
     case '2':
-      curLayer = 0;
+      curLayer = LETTERS_LAYER;
       Serial.println("Layer 2: Letters");
       Serial1.print("Layer 2: Letters\n");
       return;
     case '1':
-      curLayer = 1;
+      curLayer = BACKGROUND_LAYER;
       Serial.println("Layer 1: Background");
       Serial1.print("Layer 1: Background\n");
       return;

@@ -35,6 +35,12 @@ void Sign::pushChar(char character, bool shouldPrint){
   characters[LETTERS_COUNT-1] = character;
 }
 
+void Sign::setLayer(uint8_t layer, bool isOn){
+  for(uint8_t i=0; i<LETTERS_COUNT; i++){
+    letters[i] -> setLayer(layer, isOn);
+  }
+}
+
 uint16_t Sign::pixelCount(){
 
   if(_pixel_count > 0){

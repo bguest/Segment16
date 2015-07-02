@@ -35,9 +35,9 @@ bool SolidColor::pushChar(char character, uint8_t ci){
               desc = SAT_STR; break;
     case 'V': val = (color[ci].saturation -= VALUE_STEP);
               desc = SAT_STR; break;
-    case 'B': val = (color[ci].value += VALUE_STEP);
+    case 'B': val = (color[ci].value -= VALUE_STEP);
               desc = VAL_STR; break;
-    case 'b': val = (color[ci].value -= VALUE_STEP);
+    case 'b': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
   }
   return(this -> usedSetting(desc, val));

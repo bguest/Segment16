@@ -44,9 +44,9 @@ bool RandomFade::pushChar(char character, uint8_t ci){
               desc = SAT_STR; break;
     case 'V': val = (color[ci].saturation -= VALUE_STEP);
               desc = SAT_STR; break;
-    case 'B': val = (color[ci].value += VALUE_STEP);
+    case 'B': val = (color[ci].value -= VALUE_STEP);
               desc = VAL_STR; break;
-    case 'b': val = (color[ci].value -= VALUE_STEP);
+    case 'b': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
 
     case 'r': val = 1; this->randomizeSpeeds();

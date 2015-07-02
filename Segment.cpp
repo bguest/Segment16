@@ -26,6 +26,13 @@ void Segment::toArray(CRGB array[], uint16_t &currIdx){
   }
 }
 
+void Segment::setColor(uint8_t layer, CHSV color){
+  bool on = (layer == 0);
+  if(isOn == on){
+    this -> setColor(color);
+  }
+}
+
 void Segment::setColor(CRGB color){
   for(uint8_t i=0; i< _length; i++){
     pixels[i] -> setColor(color);

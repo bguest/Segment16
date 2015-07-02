@@ -13,6 +13,7 @@ class Segment {
     uint16_t pixelCount();
     void toArray(CRGB array[], uint16_t &currIdx);
     void setColor(CRGB color);
+    void setColor(uint8_t layer, CHSV color);
 
   private:
     uint8_t _length;

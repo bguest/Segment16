@@ -1,11 +1,11 @@
 #include "Effect.h"
-#include "RainbowLetter.h"
+#include "RainbowSegment.h"
 
-RainbowLetter::RainbowLetter(){
+RainbowSegment::RainbowSegment(){
   this -> reset();
 }
 
-void RainbowLetter::reset(){
+void RainbowSegment::reset(){
   isStatic = false;
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     color[i] = CHSV(128*i,255,255);
@@ -13,20 +13,20 @@ void RainbowLetter::reset(){
   }
 }
 
-void RainbowLetter::run(Sign &sign, uint8_t layer){
+void RainbowSegment::run(Sign &sign, uint8_t layer){
   if( sign.textChanged ){ this -> signWasUpdated(sign);}
-  uint8_t letters_count = sign.letterCount();
+  uint8_t segment_count = sign.segmentCount();
   CHSV curr_color = color[layer];
 
-  for(uint8_t i=0; i<letters_count; i++){
-    Letter* curr_letter = sign.letters[i];
-    curr_letter -> setColor(layer, curr_color);
+  for(uint8_t i=0; i<segment_count; i++){
+    Segment* curr_segment = sign.segments[i];
+    curr_segment -> setColor(layer, curr_color);
     curr_color.hue += hueStep[layer];
   }
 
 }
 
-bool RainbowLetter::pushChar(char character, uint8_t ci){
+bool RainbowSegment::pushChar(char character, uint8_t ci){
   int32_t val = 0xFFFF;
   String desc;
 
@@ -60,7 +60,7 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
   return(this -> usedSetting(desc, val));
 }
 
-void RainbowLetter::signWasUpdated(Sign &sign){
+void RainbowSegment::signWasUpdated(Sign &sign){
   if(isStatic){return;}
 
   for(uint8_t i=0; i< LAYER_COUNT; i++){

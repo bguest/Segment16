@@ -12,7 +12,6 @@ class RandomFade : public Effect{
     void signWasUpdated(Sign &sign);
 
   private:
-    CHSV color[LAYER_COUNT];
     int16_t fadeSpeed[LAYER_COUNT];
     uint16_t segHue[16*LETTERS_COUNT];
     int16_t  segSpeed[16*LETTERS_COUNT];

@@ -32,23 +32,12 @@ void RandomFade::run(Sign &sign, uint8_t ci){
 }
 
 bool RandomFade::pushChar(char character, uint8_t ci){
+  if( this -> useCharForColor(character, ci)){ return true; };
+
   int32_t val = 0xFFFF;
   String desc;
 
   switch(character){
-    case 'c': val = (color[ci].hue += HUE_STEP);
-              desc = HUE_STR; break;
-    case 'C': val = (color[ci].hue -= HUE_STEP);
-              desc = HUE_STR; break;
-    case 'v': val = (color[ci].saturation += VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'V': val = (color[ci].saturation -= VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'B': val = (color[ci].value -= VALUE_STEP);
-              desc = VAL_STR; break;
-    case 'b': val = (color[ci].value += VALUE_STEP);
-              desc = VAL_STR; break;
-
     case 'r': val = 1; this->randomizeSpeeds();
               desc = RESET_STR; break;
     case 'f': val = this -> incRandomSpeed(true, ci);
@@ -59,7 +48,6 @@ bool RandomFade::pushChar(char character, uint8_t ci){
               desc = CONVERGE_TIME_STR; break;
     case 'F': val = (fadeTime -= FADE_TIME_STEP);
               desc = CONVERGE_TIME_STR; break;
-
   }
   return( usedSetting(desc, val) );
 }

@@ -23,22 +23,5 @@ void SolidColor::run(Sign &sign, uint8_t ci){
 }
 
 bool SolidColor::pushChar(char character, uint8_t ci){
-  int32_t val = 0xFFFF;
-  String desc;
-
-  switch(character){
-    case 'c': val = (color[ci].hue += HUE_STEP);
-              desc = HUE_STR; break;
-    case 'C': val = (color[ci].hue -= HUE_STEP);
-              desc = HUE_STR; break;
-    case 'v': val = (color[ci].saturation += VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'V': val = (color[ci].saturation -= VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'B': val = (color[ci].value -= VALUE_STEP);
-              desc = VAL_STR; break;
-    case 'b': val = (color[ci].value += VALUE_STEP);
-              desc = VAL_STR; break;
-  }
-  return( usedSetting(desc, val));
+  return this -> useCharForColor(character, ci);
 }

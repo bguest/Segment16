@@ -27,23 +27,12 @@ void RainbowSegment::run(Sign &sign, uint8_t layer){
 }
 
 bool RainbowSegment::pushChar(char character, uint8_t ci){
+  if( this -> useCharForColor(character, ci)){ return true; };
+
   int32_t val = 0xFFFF;
   String desc;
 
   switch(character){
-    case 'c': val = (color[ci].hue += HUE_STEP);
-              desc = HUE_STR; break;
-    case 'C': val = (color[ci].hue -= HUE_STEP);
-              desc = HUE_STR; break;
-    case 'v': val = (color[ci].saturation += VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'V': val = (color[ci].saturation -= VALUE_STEP);
-              desc = SAT_STR; break;
-    case 'B': val = (color[ci].value -= VALUE_STEP);
-              desc = VAL_STR; break;
-    case 'b': val = (color[ci].value += VALUE_STEP);
-              desc = VAL_STR; break;
-
     case 'w': val = (color[ci].hue += hueStep[ci]);
               desc = "Jump forward"; break;
     case 'e': val = (color[ci].hue -= hueStep[ci]);
@@ -55,7 +44,6 @@ bool RainbowSegment::pushChar(char character, uint8_t ci){
               desc = STEP_SIZE_STR; break;
     case 'd': val = (isStatic = !isStatic);
               desc = "Static"; break;
-
   }
   return( usedSetting(desc, val));
 }

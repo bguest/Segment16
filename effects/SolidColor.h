@@ -12,7 +12,6 @@ class SolidColor : public Effect{
     bool pushChar(char character, uint8_t layer);
 
   private:
-    CHSV color[LAYER_COUNT];
 
 };
 #endif

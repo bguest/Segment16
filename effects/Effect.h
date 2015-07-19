@@ -26,6 +26,8 @@ class Effect{
     virtual void run(Sign &sign, uint8_t layer);
 
   protected:
+    CHSV color[LAYER_COUNT];
     void off(Sign &sign);
+    bool useCharForColor(char character, uint8_t layer);
 };
 #endif

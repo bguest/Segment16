@@ -66,8 +66,8 @@ void Effects::pushChar(char character){
       Serial1.print("\nRESET");
       this -> reset(); break;
 
-    case '<': val = this -> prevTextEffect(); break;
-    case '>': val = this -> nextTextEffect(); break;
+    case '.': val = this -> prevTextEffect(); break;
+    case ',': val = this -> nextTextEffect(); break;
 
     case 'l': val = this -> prevColorEffect(curLayer); break;
     case 'h': val = this -> nextColorEffect(curLayer); break;

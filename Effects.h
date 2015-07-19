@@ -69,6 +69,7 @@ class Effects {
     uint8_t nextColorEffect(uint8_t layer);
     uint8_t prevColorEffect(uint8_t layer);
     void updateColorEffect(uint8_t layer);
+    void invertColors();
 };
 
 #endif

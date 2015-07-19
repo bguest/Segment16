@@ -15,6 +15,7 @@ const String HUE_STR = "Color";
 const String SAT_STR = "Vibrance";
 const String VAL_STR = "Brightness";
 const String RESET_STR = "Reset";
+const String INVERTED_STR = "Inverted";
 
 class Effect{
   public:

@@ -85,6 +85,7 @@ void Effects::pushChar(char character){
 
     case 'l': this -> prevColorEffect(curLayer); break;
     case 'h': this -> nextColorEffect(curLayer); break;
+    case 'I': this -> invertColors(); break;
   }
 
   usedSetting(desc, val);
@@ -197,5 +198,18 @@ void Effects::updateColorEffect(uint8_t ci){
   Serial.println(desc);
   Serial1.print('\n');
   Serial1.print(desc);
+}
+
+void Effects::invertColors(){
+  uint8_t cTemp = cColorEffect[0];
+  Effect *tempEffect = colorEffect[0];
+
+  cColorEffect[0] = cColorEffect[1];
+  colorEffect[0] = colorEffect[1];
+
+  cColorEffect[1] = cTemp;
+  colorEffect[1] = tempEffect;
+
+  usedSetting(INVERTED_STR, 0);
 }
 

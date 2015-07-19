@@ -7,14 +7,11 @@ RandomOn::RandomOn(){
 
 void RandomOn::reset(){
   onCount = 1;
-  lastRun = 0;
-  cycleTime = 500;
   shouldReset = true;
   turnOn = true;
 }
 
 void RandomOn::run(Sign &sign, uint8_t layer){
-  if(! this -> shouldRun() ){return;};
   sign.textChanged = true;
 
   uint16_t seg_count = sign.segmentCount();
@@ -33,9 +30,6 @@ void RandomOn::run(Sign &sign, uint8_t layer){
 bool RandomOn::pushChar(char character, uint8_t ci){
   int32_t val = 0xFFFF;
   String desc;
-  const uint8_t periodStep = 25;
-
-  if( this -> useCharForTiming(character) ){ return true;};
 
   switch(character){
     case 'o': val = (turnOn = !turnOn);
@@ -43,14 +37,10 @@ bool RandomOn::pushChar(char character, uint8_t ci){
     case 'r': shouldReset = true; val = 1;
               desc = RESET_STR; break;
 
-    case 'k': val = (cycleTime -= periodStep);
-              desc = CYCLE_TIME_STR; break;
-    case 'j': val = (cycleTime += periodStep);
-              desc = CYCLE_TIME_STR; break;
     case ']': val = (++onCount);
               desc = NUMBER_ON_STR; break;
     case '[': val = (--onCount);
               desc = NUMBER_ON_STR; break;
   }
-  return( this ->usedSetting(desc, val) );
+  return( usedSetting(desc, val) );
 }

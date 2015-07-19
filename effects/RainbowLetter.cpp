@@ -57,7 +57,7 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
               desc = "Static"; break;
 
   }
-  return(this -> usedSetting(desc, val));
+  return( usedSetting(desc, val));
 }
 
 void RainbowLetter::signWasUpdated(Sign &sign){

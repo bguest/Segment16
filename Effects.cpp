@@ -35,7 +35,10 @@ void Effects::run(Sign &sign){
   lastRun = time;
   sign.textChanged = false;
 
-  textEffect -> run(sign, 0);
+  if(time - textLastRun > textCycleTime){
+    textEffect -> run(sign, 0);
+    textLastRun = time;
+  }
 
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     colorEffect[i] -> run(sign, i);
@@ -43,6 +46,7 @@ void Effects::run(Sign &sign){
 }
 
 void Effects::pushChar(char character){
+  const uint8_t periodStep = 25;
 
   switch(character){
     case '2':
@@ -60,23 +64,30 @@ void Effects::pushChar(char character){
   if( textEffect -> pushChar(character, 0) ){ return; }
   if( colorEffect[curLayer] -> pushChar(character, curLayer) ){ return; }
 
-  int32_t val = 0;
+  int32_t val = 0xFFFF;
+  String desc;
+
   switch(character){
     case 'R':
       Serial1.print("\nRESET");
       this -> reset(); break;
 
-    case '.': val = this -> prevTextEffect(); break;
-    case ',': val = this -> nextTextEffect(); break;
+    case 'k': val = (textCycleTime -= periodStep);
+              desc = CYCLE_TIME_STR; break;
+    case 'j': val = (textCycleTime += periodStep);
+              desc = CYCLE_TIME_STR; break;
 
-    case 'l': val = this -> prevColorEffect(curLayer); break;
-    case 'h': val = this -> nextColorEffect(curLayer); break;
+    case 't': textLastRun = 0; break;
+    case 'g': textLastRun = millis(); break;
 
+    case '.': this -> prevTextEffect(); break;
+    case ',': this -> nextTextEffect(); break;
+
+    case 'l': this -> prevColorEffect(curLayer); break;
+    case 'h': this -> nextColorEffect(curLayer); break;
   }
-  Serial.print(character);
-  Serial.print(": ");
-  Serial.print(val);
-  Serial.println(" ");
+
+  usedSetting(desc, val);
 }
 
 // Called when new letters pushed to sign
@@ -91,6 +102,9 @@ void Effects::signWasUpdated(Sign &sign){
 void Effects::reset(){
   curLayer = 0;
   lastRun = 0;
+  textLastRun = 0;
+  textCycleTime = 500;
+
   textEffect -> reset();
   for(uint8_t i=1; i<LAYER_COUNT; i++){
     colorEffect[i] -> reset();

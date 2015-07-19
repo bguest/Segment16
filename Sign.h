@@ -18,6 +18,7 @@ class Sign{
     char characters[LETTERS_COUNT];
     bool textChanged;
 
+
   private:
     uint16_t _pixel_count;
 };

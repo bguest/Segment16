@@ -5,14 +5,11 @@ Counter::Counter(){
 }
 
 void Counter::reset(){
-  lastRun = 0;
-  cycleTime = 500;
   step = 1;
   count = 0;
 }
 
 void Counter::run(Sign &sign, uint8_t layer){
-  if(! this -> shouldRun() ){return;};
   this -> off(sign);
   if( step != 0 ){ sign.textChanged = true; }
 
@@ -35,20 +32,14 @@ void Counter::run(Sign &sign, uint8_t layer){
 }
 
 bool Counter::pushChar(char character, uint8_t ci){
-  if( this -> useCharForTiming(character) ){ return true;};
   int32_t val = 0xFFFF;
   String desc;
-  const uint8_t periodStep = 25;
 
   switch(character){
-    case 'k': val = (cycleTime -= periodStep);
-      desc = CYCLE_TIME_STR; break;
-    case 'j': val = (cycleTime += periodStep);
-      desc = CYCLE_TIME_STR; break;
     case ']': val = ++step;
       desc = STEP_SIZE_STR; break;
     case '[': val = --step;
       desc = STEP_SIZE_STR; break;
   }
-  return( this -> usedSetting(desc, val));
+  return( usedSetting(desc, val) );
 }

@@ -2,6 +2,7 @@
 #define EFFECTS_H
 
 #include "Sign.h"
+#include "Helpers.h"
 #include "effects/Effect.h"
 #include "effects/RandomOn.h"
 #include "effects/Counter.h"
@@ -55,6 +56,8 @@ class Effects {
 
     unsigned long lastRun;
     uint16_t cycleTime;
+    unsigned long textLastRun;
+    uint16_t textCycleTime;
 
     void reset();
     void setDefaults();

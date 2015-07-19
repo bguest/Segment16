@@ -26,10 +26,5 @@ class Effect{
 
   protected:
     void off(Sign &sign);
-    bool usedSetting(String desc, int32_t val);
-    bool shouldRun();
-    bool useCharForTiming(char character);
-    unsigned long lastRun;
-    uint16_t cycleTime;
 };
 #endif

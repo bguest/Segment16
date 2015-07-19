@@ -40,5 +40,5 @@ bool SolidColor::pushChar(char character, uint8_t ci){
     case 'b': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
   }
-  return(this -> usedSetting(desc, val));
+  return( usedSetting(desc, val));
 }

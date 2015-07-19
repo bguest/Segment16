@@ -52,8 +52,7 @@ bool SolidFade::pushChar(char character, uint8_t ci){
     case 'b': val = (color[ci].value += VALUE_STEP);
               desc = VAL_STR; break;
   }
-  String str = String(character);
-  return this -> usedSetting(str, val);
+  return usedSetting(desc, val);
 
 }
 

@@ -61,7 +61,7 @@ bool RandomFade::pushChar(char character, uint8_t ci){
               desc = CONVERGE_TIME_STR; break;
 
   }
-  return( this->usedSetting(desc, val));
+  return( usedSetting(desc, val) );
 }
 
 int16_t RandomFade::incRandomSpeed(bool isPositive, uint8_t layer){

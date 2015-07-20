@@ -14,6 +14,5 @@ class RainbowSegment : public Effect{
   private:
     bool isStatic;
     int8_t hueStep[LAYER_COUNT];
-    CHSV color[LAYER_COUNT];
 };
 #endif

@@ -33,9 +33,16 @@ void Effects::run(Sign &sign){
   unsigned long time = millis();
   if(time - lastRun < CYCLE_TIME){ return; }
   lastRun = time;
-  sign.textChanged = false;
 
-  if(time - textLastRun > textCycleTime){
+  if(changeText){
+    changeText = false;
+    sign.textChanged = true;
+  }else{
+    sign.textChanged = false;
+  }
+
+  if( time - textLastRun > textCycleTime ||
+      textEffect == &basicTyping){
     textEffect -> run(sign, 0);
     textLastRun = time;
   }
@@ -77,7 +84,8 @@ void Effects::pushChar(char character){
     case 'j': val = (textCycleTime += periodStep);
               desc = CYCLE_TIME_STR; break;
 
-    case 't': textLastRun = 0; break;
+    case 't': textLastRun = 0; lastRun = 0;
+              changeText = true; break;
     case 'g': textLastRun = millis(); break;
 
     case '.': this -> prevTextEffect(); break;
@@ -93,10 +101,13 @@ void Effects::pushChar(char character){
 
 // Called when new letters pushed to sign
 void Effects::signWasUpdated(Sign &sign){
+  textLastRun = 0;
   this -> run(sign);
   textEffect -> signWasUpdated(sign);
-  for(uint8_t i=0; i<LAYER_COUNT; i++){
-    colorEffect[i] -> signWasUpdated(sign);
+
+  colorEffect[0] -> signWasUpdated(sign);
+  if(colorEffect[0] != colorEffect[1]){
+    colorEffect[1] -> signWasUpdated(sign);
   }
 }
 
@@ -105,6 +116,7 @@ void Effects::reset(){
   lastRun = 0;
   textLastRun = 0;
   textCycleTime = 500;
+  changeText = false;
 
   textEffect -> reset();
   for(uint8_t i=1; i<LAYER_COUNT; i++){
@@ -202,13 +214,16 @@ void Effects::updateColorEffect(uint8_t ci){
 
 void Effects::invertColors(){
   uint8_t cTemp = cColorEffect[0];
-  Effect *tempEffect = colorEffect[0];
-
   cColorEffect[0] = cColorEffect[1];
-  colorEffect[0] = colorEffect[1];
-
   cColorEffect[1] = cTemp;
-  colorEffect[1] = tempEffect;
+
+  this -> updateColorEffect(0);
+  this -> updateColorEffect(1);
+
+  colorEffect[0] -> invertColors();
+  if(colorEffect[0] != colorEffect[1]){ //Prevent Double Flip
+    colorEffect[1] -> invertColors();
+  }
 
   usedSetting(INVERTED_STR, 0);
 }

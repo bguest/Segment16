@@ -40,6 +40,12 @@ bool Effect::useCharForColor(char character, uint8_t ci){
   return( usedSetting(desc, val) );
 }
 
+void Effect::invertColors(){
+  CHSV tempColor = color[0];
+  color[0] = color[1];
+  color[1] = tempColor;
+}
+
 void Effect::off(Sign &sign){
   uint16_t seg_count = sign.segmentCount();
   for(uint16_t i=0; i<seg_count; i++){

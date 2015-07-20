@@ -45,6 +45,13 @@ bool SolidFade::pushChar(char character, uint8_t ci){
 
 }
 
+void SolidFade::invertColors(){
+  Effect::invertColors();
+  uint16_t tempHue = fadeHue[0];
+  fadeHue[0] = fadeHue[1];
+  fadeHue[1] = tempHue;
+}
+
 int16_t SolidFade::incSegSpeed(bool isPositive, uint8_t layer){
   if(isPositive){
     fadeSpeed[layer]++;

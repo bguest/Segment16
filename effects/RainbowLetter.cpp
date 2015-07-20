@@ -14,7 +14,7 @@ void RainbowLetter::reset(){
 }
 
 void RainbowLetter::run(Sign &sign, uint8_t layer){
-  if( sign.textChanged ){ this -> signWasUpdated(sign);}
+  if( sign.textChanged ){ this -> signWasUpdated(sign, layer);}
   uint8_t letters_count = sign.letterCount();
   CHSV curr_color = color[layer];
 
@@ -50,10 +50,13 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
   return( usedSetting(desc, val));
 }
 
-void RainbowLetter::signWasUpdated(Sign &sign){
+void RainbowLetter::signWasUpdated(Sign &sign, uint8_t layer){
   if(isStatic){return;}
+  color[layer].hue += hueStep[layer];
+}
 
+void RainbowLetter::signWasUpdated(Sign &sign){
   for(uint8_t i=0; i< LAYER_COUNT; i++){
-    color[i].hue += hueStep[i];
+    this -> signWasUpdated(sign, i);
   }
 }

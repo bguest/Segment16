@@ -58,6 +58,7 @@ class Effects {
     uint16_t cycleTime;
     unsigned long textLastRun;
     uint16_t textCycleTime;
+    bool changeText;
 
     void reset();
     void setDefaults();

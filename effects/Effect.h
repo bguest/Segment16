@@ -24,6 +24,7 @@ class Effect{
     virtual void reset();
     virtual void signWasUpdated(Sign &sign);
     virtual void run(Sign &sign, uint8_t layer);
+    virtual void invertColors();
 
   protected:
     CHSV color[LAYER_COUNT];

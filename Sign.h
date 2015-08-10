@@ -1,7 +1,7 @@
 #ifndef SIGN_H
 #define SIGN_H
 
-#define LETTERS_COUNT 2
+#define LETTERS_COUNT 4
 #include "Letter.h"
 
 class Sign{

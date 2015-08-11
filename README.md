@@ -45,8 +45,8 @@ Generally in normal mode typing `R` will reset the current effects to some defau
 
 Text Effects control what segments are "on".
 
-+ `>`: Changes to the next text effect.
-+ `<`: Changes to the previous text effect.
++ `.`: Changes to the next text effect.
++ `,`: Changes to the previous text effect.
 
 ### Basic Typing
 

@@ -21,6 +21,7 @@ class Effect{
   public:
     Effect();
     virtual bool pushChar(char character, uint8_t layer);
+    virtual bool pushInsert(char character);
     virtual void reset();
     virtual void signWasUpdated(Sign &sign);
     virtual void run(Sign &sign, uint8_t layer);

@@ -7,6 +7,7 @@
 #include "effects/RandomOn.h"
 #include "effects/Counter.h"
 #include "effects/BasicTyping.h"
+#include "effects/WordsEnter.h"
 #include "effects/SolidColor.h"
 #include "effects/SolidFade.h"
 #include "effects/RandomFade.h"
@@ -18,7 +19,8 @@
 #define RANDOM_ON 1
 #define COUNTER 2
 #define RANDOM_LETTERS 3
-#define TEXT_EFFECTS_COUNT 4
+#define WORDS_ENTER 4
+#define TEXT_EFFECTS_COUNT 5
 
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
@@ -30,6 +32,7 @@
 class Effects {
   public:
     Effects();
+    bool pushInsert(char character);
     void pushChar(char character);
     void signWasUpdated(Sign &sign);
     void run(Sign &sign);
@@ -39,6 +42,7 @@ class Effects {
     BasicTyping basicTyping;
     Counter counter;
     RandomLetters randomLetters;
+    WordsEnter wordsEnter;
 
     SolidColor solidColor;
     RandomFade randomFade;

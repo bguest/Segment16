@@ -12,6 +12,9 @@ void Effect::run(Sign &sign, uint8_t layer){
 }
 void Effect::signWasUpdated(Sign &sign){
 }
+bool Effect::pushInsert(char character){
+  return false;
+}
 bool Effect::pushChar(char character, uint8_t layer){
   return false;
 }

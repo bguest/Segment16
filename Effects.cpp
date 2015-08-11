@@ -10,6 +10,7 @@
 #include "effects/RandomOn.cpp"
 #include "effects/Counter.cpp"
 #include "effects/BasicTyping.cpp"
+#include "effects/WordsEnter.cpp"
 #include "effects/SolidColor.cpp"
 #include "effects/SolidFade.cpp"
 #include "effects/RandomFade.cpp"
@@ -50,6 +51,10 @@ void Effects::run(Sign &sign){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     colorEffect[i] -> run(sign, i);
   }
+}
+
+bool Effects::pushInsert(char character){
+  return textEffect -> pushInsert(character);
 }
 
 void Effects::pushChar(char character){
@@ -156,6 +161,10 @@ void Effects::updateTextEffect(){
     case RANDOM_LETTERS:
       textEffect = &randomLetters;
       desc = "Random Letters\nkeys:kj";
+      break;
+    case WORDS_ENTER:
+      textEffect = &wordsEnter;
+      desc = "Words Enter\nkeys:kjKJ";
       break;
     default:
       textEffect = &nullEffect;

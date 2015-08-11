@@ -15,6 +15,7 @@ void RainbowLetter::reset(){
 
 void RainbowLetter::run(Sign &sign, uint8_t layer){
   if( sign.textChanged ){ this -> signWasUpdated(sign, layer);}
+
   uint8_t letters_count = sign.letterCount();
   CHSV curr_color = color[layer];
 

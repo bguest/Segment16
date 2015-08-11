@@ -2,7 +2,7 @@
 
 Sign::Sign(void){
 
-  uint8_t lengths[4][16] = {
+  uint8_t lengths[LETTERS_COUNT][16] = {
     {3, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2},
     {2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2},
     {2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2},
@@ -19,6 +19,8 @@ Sign::Sign(void){
 
   characters[0] = 'H';
   characters[1] = 'I';
+  characters[2] = 'H';
+  characters[3] = 'I';
 };
 
 void Sign::pushChar(char character){

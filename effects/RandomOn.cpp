@@ -13,8 +13,8 @@ void RandomOn::reset(){
 
 void RandomOn::randomize(uint8_t ci){
   onCount = random(0, UINT8_MAX);
-  shouldReset = (bool)random(0,1);
-  turnOn = (bool)random(0,1);
+  shouldReset = true;
+  turnOn = true;
 }
 
 void RandomOn::run(Sign &sign, uint8_t layer){

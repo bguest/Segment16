@@ -48,7 +48,7 @@ bool Segment16::decideInput(char newInput){
   if(isInsertMode && esc ){
     Serial1.print("\nNormal Mode");
     isInsertMode = false;
-  }else if(!isInsertMode && newInput == 'i'){
+  }else if(!isInsertMode && (newInput == 'i' || newInput == ' ')){
     Serial1.print("\nInsert Mode\n");
     isInsertMode = true;
     return true;

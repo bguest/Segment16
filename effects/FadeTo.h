@@ -1,17 +1,19 @@
-#ifndef COUNTER_H
-#define COUNTER_H
+#ifndef FADE_TO_H
+#define FADE_TO_H
 
 #include "Effect.h"
-class Counter : public Effect{
+
+class FadeTo : public Effect{
+
   public:
-    Counter();
+    FadeTo();
     void reset();
     void run(Sign &sign, uint8_t layer);
     bool pushChar(char character, uint8_t layer);
     void randomize(uint8_t ci);
-  private:
-    int step;
-    unsigned int count;
-};
 
+  private:
+    uint16_t fadeTime;
+    uint16_t segHue[16*LETTERS_COUNT];
+};
 #endif

@@ -17,6 +17,7 @@
 #include "effects/RandomLetters.cpp"
 #include "effects/RainbowLetter.cpp"
 #include "effects/RainbowSegment.cpp"
+#include "effects/FadeTo.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 const unsigned long RANDOMIZE_TIME = 60*1000;
@@ -240,6 +241,10 @@ void Effects::updateColorEffect(uint8_t ci){
     case RAINBOW_SEGMENT:
       colorEffect[ci] = &rainbowSegment;
       desc = "Rainbow Segment\nKeys:cCvVbBrefsd";
+      break;
+    case FADE_TO:
+      colorEffect[ci] = &fadeTo;
+      desc = "FadeTo\nKeys:cCvVbBfs";
       break;
   }
   Serial.println(desc);

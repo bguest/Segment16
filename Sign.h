@@ -10,6 +10,7 @@ class Sign{
     uint16_t pixelCount();
     uint8_t letterCount();
     uint16_t segmentCount();
+    void setWord(String word);
     void pushChar(char);
     void pushChar(char, bool);
     void setLayer(uint8_t layer, bool isOn);
@@ -17,9 +18,10 @@ class Sign{
     Segment *segments[16*LETTERS_COUNT];
     char characters[LETTERS_COUNT];
     bool textChanged;
-
+    void sanitize();
 
   private:
     uint16_t _pixel_count;
+    void _setWord(String word, uint8_t size);
 };
 #endif

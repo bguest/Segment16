@@ -38,6 +38,8 @@ void Sign::pushChar(char character, bool shouldPrint){
   }
   characters[LETTERS_COUNT-1] = character;
 
+  this -> sanitize();
+
   for(uint8_t i=0; i< LETTERS_COUNT; i++){
     letters[i] -> currentChar = characters[i];
   }
@@ -46,6 +48,46 @@ void Sign::pushChar(char character, bool shouldPrint){
 void Sign::setLayer(uint8_t layer, bool isOn){
   for(uint8_t i=0; i<LETTERS_COUNT; i++){
     letters[i] -> setLayer(layer, isOn);
+  }
+}
+
+void Sign::setWord(String word){
+  uint8_t size = min((uint8_t)word.length(), LETTERS_COUNT);
+
+  for(uint8_t i=0; i<size; i++){
+    characters[i] = word.charAt(i);
+  }
+  this -> sanitize();
+
+  for(uint8_t i=0; i<size; i++){
+    letters[i] -> setChar( characters[i] );
+  }
+}
+
+void Sign::_setWord(String word, uint8_t size){
+  char ctr;
+  for(uint8_t i=0; i< size; i++){
+    ctr = word.charAt(i);
+    characters[i] = ctr;
+    letters[i] -> setChar( ctr );
+  }
+}
+
+#define BAD_WORDS_COUNT 10
+const String badWords[BAD_WORDS_COUNT] = {
+  //"TEST"
+  "CUNT", "GOOK", "FUCK", "SHIT", "FAGG",
+  "FAG ", " FAG", "COON", "HEEB", "SLUT"
+};
+
+void Sign::sanitize(){
+  String ctrs = String(characters).substring(0, LETTERS_COUNT);
+  String badWord;
+  for(uint8_t i=0; i< BAD_WORDS_COUNT; i++){
+    badWord = badWords[i];
+    if(badWord.equalsIgnoreCase(ctrs)){
+      this -> _setWord(String("LOVE"), LETTERS_COUNT);
+    }
   }
 }
 

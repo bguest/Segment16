@@ -77,14 +77,11 @@ bool WordsEnter::pushChar(char character, uint8_t ci){
 }
 
 void WordsEnter::run(Sign &sign, uint8_t layer){
+  if(beatIdx++ % numBeats > 0){ return;}
+
   sign.textChanged = true;
 
-  for(uint8_t i = 0; i < LETTERS_COUNT; i++){
-    sign.letters[i] -> setChar(words[wordIdx][i]);
-  }
-  if(++beatIdx > numBeats){
-    beatIdx = 0;
-    wordIdx++;
-    wordIdx = wordIdx % wordsCount;
-  }
+  sign.setWord( String( words[wordIdx] ) );
+  wordIdx++;
+  wordIdx = wordIdx % wordsCount;
 }

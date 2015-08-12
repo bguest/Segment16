@@ -93,8 +93,8 @@ void Effects::pushChar(char character){
               changeText = true; break;
     case 'g': textLastRun = millis(); break;
 
-    case '.': this -> prevTextEffect(); break;
-    case ',': this -> nextTextEffect(); break;
+    case ',': this -> prevTextEffect(); break;
+    case '.': this -> nextTextEffect(); break;
 
     case 'l': this -> prevColorEffect(curLayer); break;
     case 'h': this -> nextColorEffect(curLayer); break;
@@ -137,8 +137,12 @@ uint8_t Effects::nextTextEffect(){
 }
 
 uint8_t Effects::prevTextEffect(){
-  cTextEffect--;
-  cTextEffect = cTextEffect % TEXT_EFFECTS_COUNT;
+  if(cTextEffect == 0){
+    cTextEffect = TEXT_EFFECTS_COUNT - 1;
+  }else{
+    cTextEffect--;
+    cTextEffect = cTextEffect % TEXT_EFFECTS_COUNT;
+  }
   this -> updateTextEffect();
   return cTextEffect;
 }

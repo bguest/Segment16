@@ -16,6 +16,7 @@ const String SAT_STR = "Vibrance";
 const String VAL_STR = "Brightness";
 const String RESET_STR = "Reset";
 const String INVERTED_STR = "Inverted";
+const String RANDOM_STR = "Randomized";
 
 class Effect{
   public:
@@ -26,9 +27,11 @@ class Effect{
     virtual void signWasUpdated(Sign &sign);
     virtual void run(Sign &sign, uint8_t layer);
     virtual void invertColors();
+    virtual void randomize(uint8_t layer);
 
   protected:
     CHSV color[LAYER_COUNT];
+    void randomizeColor(uint8_t layer);
     void off(Sign &sign);
     bool useCharForColor(char character, uint8_t layer);
 };

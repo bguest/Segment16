@@ -12,6 +12,11 @@ void SolidFade::reset(){
   }
 }
 
+void SolidFade::randomize(uint8_t ci){
+  this -> randomizeColor(ci);
+  fadeSpeed[ci] = random(-100,100);
+}
+
 void SolidFade::run(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
   CHSV clr = color[ci];
@@ -40,6 +45,8 @@ bool SolidFade::pushChar(char character, uint8_t ci){
               desc = FADE_SPEED_STR; break;
     case 's': val = this -> incSegSpeed(false, ci);
               desc = FADE_SPEED_STR; break;
+    case 'x': this -> randomize(ci);
+              val = color[ci].hue; desc = RANDOM_STR; break;
   }
   return usedSetting(desc, val);
 

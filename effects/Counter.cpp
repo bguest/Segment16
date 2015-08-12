@@ -9,6 +9,11 @@ void Counter::reset(){
   count = 0;
 }
 
+void Counter::randomize(uint8_t ci){
+  step = random(INT8_MIN, INT8_MAX);
+  count = random(0,9999);
+}
+
 void Counter::run(Sign &sign, uint8_t layer){
   this -> off(sign);
   if( step != 0 ){ sign.textChanged = true; }
@@ -40,6 +45,10 @@ bool Counter::pushChar(char character, uint8_t ci){
       desc = STEP_SIZE_STR; break;
     case '[': val = --step;
       desc = STEP_SIZE_STR; break;
+    case '/': this -> randomize(ci);
+      val = step;
+      desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val) );
 }
+

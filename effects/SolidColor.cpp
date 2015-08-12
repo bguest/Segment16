@@ -9,6 +9,11 @@ void SolidColor::reset(){
     color[i] = CHSV(128*i,255,255-100*i);
   }
 }
+
+void SolidColor::randomize(uint8_t ci){
+  this -> randomizeColor(ci);
+}
+
 void SolidColor::run(Sign &sign, uint8_t ci){
   uint16_t seg_count = sign.segmentCount();
 
@@ -23,5 +28,16 @@ void SolidColor::run(Sign &sign, uint8_t ci){
 }
 
 bool SolidColor::pushChar(char character, uint8_t ci){
-  return this -> useCharForColor(character, ci);
+  if(this -> useCharForColor(character, ci)){return true;};
+
+  int32_t val = 0xFFFF;
+  String desc;
+
+  switch(character){
+    case 'x':
+      this -> randomize(ci);
+      val = color[ci].hue; desc = RANDOM_STR; break;
+  }
+  return( usedSetting(desc, val) );
+
 }

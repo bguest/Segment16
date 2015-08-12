@@ -18,6 +18,21 @@ bool Effect::pushInsert(char character){
 bool Effect::pushChar(char character, uint8_t layer){
   return false;
 }
+void Effect::randomize(uint8_t layer){
+}
+
+void Effect::randomizeColor(uint8_t ci){
+  color[ci].hue = random(0, UINT8_MAX);
+
+  if(ci == BACKGROUND_LAYER){
+    color[ci].value = random(0, UINT8_MAX/2);
+  }else{
+    color[ci].value = random(UINT8_MAX/2, UINT8_MAX);
+  }
+  color[ci].saturation = random(20) == 20 ? 0 : UINT8_MAX;
+}
+
+
 bool Effect::useCharForColor(char character, uint8_t ci){
   int32_t val = 0xFFFF;
   String desc;

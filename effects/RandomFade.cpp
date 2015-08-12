@@ -14,6 +14,13 @@ void RandomFade::reset(){
   this -> randomizeSpeeds();
 }
 
+void RandomFade::randomize(uint8_t ci){
+  fadeTime = random(0,1000);
+  this -> randomizeColor(ci);
+  fadeSpeed[ci] = random(-100,100);
+  this -> randomizeSpeeds();
+}
+
 void RandomFade::run(Sign &sign, uint8_t ci){
   if( sign.textChanged ){ this -> recalculateSpeeds(sign); }
   uint16_t seg_count = sign.segmentCount();
@@ -48,6 +55,9 @@ bool RandomFade::pushChar(char character, uint8_t ci){
               desc = CONVERGE_TIME_STR; break;
     case 'F': val = (fadeTime -= FADE_TIME_STEP);
               desc = CONVERGE_TIME_STR; break;
+    case 'x': this -> randomize(ci);
+              val = fadeSpeed[ci];
+              desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val) );
 }

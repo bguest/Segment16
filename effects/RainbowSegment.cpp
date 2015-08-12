@@ -13,6 +13,12 @@ void RainbowSegment::reset(){
   }
 }
 
+void RainbowSegment::randomize(uint8_t ci){
+  isStatic = !isStatic;
+  this -> randomizeColor(ci);
+  hueStep[ci] = random(-120,120);
+}
+
 void RainbowSegment::run(Sign &sign, uint8_t layer){
   if( sign.textChanged ){ this -> signWasUpdated(sign);}
   uint8_t segment_count = sign.segmentCount();
@@ -44,6 +50,9 @@ bool RainbowSegment::pushChar(char character, uint8_t ci){
               desc = STEP_SIZE_STR; break;
     case 'd': val = (isStatic = !isStatic);
               desc = "Static"; break;
+    case 'x': this -> randomize(ci);
+              val = hueStep[ci];
+              desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val));
 }

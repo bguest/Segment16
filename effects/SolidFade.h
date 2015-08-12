@@ -10,6 +10,7 @@ class SolidFade : public Effect{
     void run(Sign &sign, uint8_t layer);
     bool pushChar(char character, uint8_t layer);
     void invertColors();
+    void randomize(uint8_t ci);
 
   private:
     uint16_t fadeHue[LAYER_COUNT];

@@ -10,6 +10,10 @@ void WordsEnter::reset(){
   this -> softReset();
 }
 
+void WordsEnter::randomize(uint8_t ci){
+  numBeats = random(0,10);
+}
+
 void WordsEnter::softReset(){
   wordIdx = 0;
   wordsCount = 0;
@@ -71,6 +75,9 @@ bool WordsEnter::pushChar(char character, uint8_t ci){
       desc = STEP_SIZE_STR; break;
     case 'J': val = --numBeats;
       desc = STEP_SIZE_STR; break;
+    case '/': this -> randomize(ci);
+      val = numBeats;
+      desc = RANDOM_STR; break;
   }
 
   return( usedSetting(desc, val) );

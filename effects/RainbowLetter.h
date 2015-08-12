@@ -11,6 +11,7 @@ class RainbowLetter : public Effect{
     bool pushChar(char character, uint8_t layer);
     void signWasUpdated(Sign &sign);
     void signWasUpdated(Sign &sign, uint8_t layer);
+    void randomize(uint8_t ci);
 
   private:
     bool isStatic;

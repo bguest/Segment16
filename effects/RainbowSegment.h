@@ -10,6 +10,7 @@ class RainbowSegment : public Effect{
     void run(Sign &sign, uint8_t layer);
     bool pushChar(char character, uint8_t layer);
     void signWasUpdated(Sign &sign);
+    void randomize(uint8_t ci);
 
   private:
     bool isStatic;

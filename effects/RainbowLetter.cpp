@@ -13,6 +13,12 @@ void RainbowLetter::reset(){
   }
 }
 
+void RainbowLetter::randomize(uint8_t ci){
+  this -> randomizeColor(ci);
+  isStatic = !isStatic;
+  hueStep[ci] = random(-120,120);
+}
+
 void RainbowLetter::run(Sign &sign, uint8_t layer){
   if( sign.textChanged ){ this -> signWasUpdated(sign, layer);}
 
@@ -47,6 +53,9 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
     case 'd': val = (isStatic = !isStatic);
               desc = "Static"; break;
 
+    case 'x': this -> randomize(ci);
+              val = hueStep[ci];
+              desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val));
 }

@@ -19,6 +19,7 @@
 #include "effects/RainbowSegment.cpp"
 
 const uint16_t CYCLE_TIME = 5;
+const unsigned long RANDOMIZE_TIME = 60*1000;
 
 Effects::Effects(){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
@@ -33,6 +34,10 @@ Effects::Effects(){
 void Effects::run(Sign &sign){
   unsigned long time = millis();
   if(time - lastRun < CYCLE_TIME){ return; }
+  if(time - lastTouched > RANDOMIZE_TIME){
+    lastTouched = time;
+    this -> randomize();
+  }
   lastRun = time;
 
   if(changeText){
@@ -54,10 +59,12 @@ void Effects::run(Sign &sign){
 }
 
 bool Effects::pushInsert(char character){
+  lastTouched = millis();
   return textEffect -> pushInsert(character);
 }
 
 void Effects::pushChar(char character){
+  lastTouched = millis();
   const uint8_t periodStep = 25;
 
   switch(character){
@@ -99,6 +106,7 @@ void Effects::pushChar(char character){
     case 'l': this -> prevColorEffect(curLayer); break;
     case 'h': this -> nextColorEffect(curLayer); break;
     case 'I': this -> invertColors(); break;
+    case 'X': this -> randomize(); break;
   }
 
   usedSetting(desc, val);
@@ -107,6 +115,7 @@ void Effects::pushChar(char character){
 // Called when new letters pushed to sign
 void Effects::signWasUpdated(Sign &sign){
   textLastRun = 0;
+  lastTouched = millis();
   this -> run(sign);
   textEffect -> signWasUpdated(sign);
 
@@ -120,6 +129,7 @@ void Effects::reset(){
   curLayer = 0;
   lastRun = 0;
   textLastRun = 0;
+  lastTouched = 0;
   textCycleTime = 500;
   changeText = false;
 
@@ -128,6 +138,18 @@ void Effects::reset(){
     colorEffect[i] -> reset();
   }
 }
+void Effects::randomize(){
+  cTextEffect = (uint8_t)random(TEXT_EFFECTS_COUNT - 1);
+  this -> updateTextEffect();
+  textEffect -> randomize(0);
+
+  for(uint8_t i=0; i<LAYER_COUNT; i++){
+    cColorEffect[i] = (uint8_t)random(COLOR_EFFECTS_COUNT - 1);
+    this -> updateColorEffect(i);
+    colorEffect[i] -> randomize(i);
+  }
+}
+
 
 uint8_t Effects::nextTextEffect(){
   cTextEffect++;

@@ -11,6 +11,12 @@ void RandomOn::reset(){
   turnOn = true;
 }
 
+void RandomOn::randomize(uint8_t ci){
+  onCount = random(0, UINT8_MAX);
+  shouldReset = (bool)random(0,1);
+  turnOn = (bool)random(0,1);
+}
+
 void RandomOn::run(Sign &sign, uint8_t layer){
   sign.textChanged = true;
 
@@ -41,6 +47,9 @@ bool RandomOn::pushChar(char character, uint8_t ci){
               desc = NUMBER_ON_STR; break;
     case '[': val = (--onCount);
               desc = NUMBER_ON_STR; break;
+    case '/': this -> randomize(ci);
+              val = onCount;
+              desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val) );
 }

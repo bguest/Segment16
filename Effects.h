@@ -58,6 +58,7 @@ class Effects {
     uint8_t cColorEffect[LAYER_COUNT];
     Effect *colorEffect[LAYER_COUNT];
 
+    unsigned long lastTouched;
     unsigned long lastRun;
     uint16_t cycleTime;
     unsigned long textLastRun;
@@ -66,6 +67,7 @@ class Effects {
 
     void reset();
     void setDefaults();
+    void randomize();
 
     uint8_t nextTextEffect();
     uint8_t prevTextEffect();

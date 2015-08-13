@@ -33,7 +33,7 @@ void Segment::setColor(uint8_t layer, CHSV color){
   }
 }
 
-void Segment::setColor(CRGB color){
+void Segment::setColor(CHSV color){
   for(uint8_t i=0; i< _length; i++){
     pixels[i] -> setColor(color);
  }

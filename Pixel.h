@@ -7,9 +7,14 @@ class Pixel {
 
   public:
     Pixel();
-    void setColor(CRGB color);
-    CRGB getColor();
+    void setColor(CHSV color);
+    void setHue16(uint16_t hue);
+    void addHue16(int16_t deltaHue);
+    uint16_t getHue16();
+    CHSV getColor();
+
   private:
-    CRGB color;
+    uint16_t hsvColor[3];
+    CHSV color;
 };
 #endif

@@ -15,6 +15,7 @@
 #include "effects/RainbowLetter.h"
 #include "effects/RainbowSegment.h"
 #include "effects/FadeTo.h"
+#include "effects/WavePixels.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
@@ -29,7 +30,8 @@
 #define RAINBOW_LETTER 3
 #define RAINBOW_SEGMENT 4
 #define FADE_TO 5
-#define COLOR_EFFECTS_COUNT 6
+#define WAVE_PIXELS 6
+#define COLOR_EFFECTS_COUNT 7
 
 class Effects {
   public:
@@ -52,6 +54,7 @@ class Effects {
     RainbowLetter rainbowLetter;
     RainbowSegment rainbowSegment;
     FadeTo fadeTo;
+    WavePixels wavePixels;
 
     Effect nullEffect;
     uint8_t curLayer;

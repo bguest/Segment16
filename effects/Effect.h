@@ -5,18 +5,19 @@
 
 #include "Sign.h"
 
-const String CYCLE_TIME_STR = "(1/Tempo)";
-const String FADE_SPEED_STR = "Fade Speed";
-const String CONVERGE_TIME_STR = "Converge In";
-const String SET_SEGS_STR = "Turn Segments";
-const String STEP_SIZE_STR = "Step Size";
-const String NUMBER_ON_STR = "Number On";
-const String HUE_STR = "Color";
-const String SAT_STR = "Vibrance";
-const String VAL_STR = "Brightness";
-const String RESET_STR = "Reset";
-const String INVERTED_STR = "Inverted";
-const String RANDOM_STR = "Randomized";
+const String CYCLE_TIME_STR = F("(1/Tempo)");
+const String FADE_SPEED_STR = F("Fade Speed");
+const String CONVERGE_TIME_STR = F("Converge In");
+const String SET_SEGS_STR = F("Turn Segments");
+const String STEP_SIZE_STR = F("Step Size");
+const String NUMBER_ON_STR = F("Number On");
+const String HUE_STR = F("Color");
+const String SAT_STR = F("Vibrance");
+const String VAL_STR = F("Brightness");
+const String RESET_STR = F("Reset");
+const String INVERTED_STR = F("Inverted");
+const String RANDOM_STR = F("Randomized");
+const String HUE_AMP_STR = F("Hue Amplitude");
 
 class Effect{
   public:

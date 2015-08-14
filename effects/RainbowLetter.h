@@ -17,5 +17,7 @@ class RainbowLetter : public Effect{
     bool isStatic;
     bool changeOnBeat;
     int8_t hueStep[LAYER_COUNT];
+    uint16_t cycleTime[LAYER_COUNT];
+    int16_t hueA[LAYER_COUNT];
 };
 #endif

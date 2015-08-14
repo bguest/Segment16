@@ -39,6 +39,13 @@ struct CHSV16 {
         v = rhs.v;
     }
 
+    inline CHSV16( const CHSV& rhs) __attribute__((always_inline))
+    {
+      h = rhs.h << 8;
+      s = rhs.s << 8;
+      v = rhs.v << 8;
+    }
+
     inline CHSV16& operator= (const CHSV16& rhs) __attribute__((always_inline))
     {
         h = rhs.h;

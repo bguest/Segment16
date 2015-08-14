@@ -16,13 +16,15 @@
 #include "effects/RainbowSegment.h"
 #include "effects/FadeTo.h"
 #include "effects/WavePixels.h"
+#include "effects/LinesOn.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
 #define COUNTER 2
 #define RANDOM_LETTERS 3
 #define WORDS_ENTER 4
-#define TEXT_EFFECTS_COUNT 5
+#define LINES_ON 5
+#define TEXT_EFFECTS_COUNT 6
 
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
@@ -47,6 +49,7 @@ class Effects {
     Counter counter;
     RandomLetters randomLetters;
     WordsEnter wordsEnter;
+    LinesOn linesOn;
 
     SolidColor solidColor;
     RandomFade randomFade;

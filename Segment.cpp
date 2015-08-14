@@ -38,3 +38,24 @@ void Segment::setColor(CHSV color){
     pixels[i] -> setColor(color);
  }
 }
+
+char Segment::orientation(){
+  switch(index){
+    case 0: case 1:
+    case 14: case 15:
+    case 5: case 4:
+      return HORIZONTAL;
+
+    case 7: case 6:
+    case 11: case 10:
+    case 2: case 3:
+      return VERTICAL;
+
+    case 8: case 9:
+      return DIAGONAL_LEFT;
+
+    case 12: case 13:
+      return DIAGONAL_RIGHT;
+
+  }
+}

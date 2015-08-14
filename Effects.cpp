@@ -19,6 +19,7 @@
 #include "effects/RainbowSegment.cpp"
 #include "effects/FadeTo.cpp"
 #include "effects/WavePixels.cpp"
+#include "effects/LinesOn.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 const unsigned long RANDOMIZE_TIME = 60*1000;
@@ -193,6 +194,10 @@ void Effects::updateTextEffect(){
     case WORDS_ENTER:
       textEffect = &wordsEnter;
       desc = "Words Enter\nkeys:kjKJ";
+      break;
+    case LINES_ON:
+      textEffect = &linesOn;
+      desc = "Lines On\nkeys:[]/";
       break;
     default:
       textEffect = &nullEffect;

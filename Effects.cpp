@@ -194,7 +194,7 @@ void Effects::updateTextEffect(){
       break;
     case COUNTER:
       textEffect = &counter;
-      desc = "Counter\nkeys:[]kj";
+      desc = "Counter\nkeys:u[]{}kj";
       break;
     case RANDOM_LETTERS:
       textEffect = &randomLetters;

@@ -11,7 +11,7 @@ class Counter : public Effect{
     void randomize(uint8_t ci);
   private:
     int step;
-    unsigned int count;
+    uint16_t count;
 };
 
 #endif

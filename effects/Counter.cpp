@@ -21,12 +21,12 @@ void Counter::run(Sign &sign, uint8_t layer){
   count += step;
   uint8_t letter_count = sign.letterCount();
 
-  uint8_t devisor = 1;
+  uint16_t devisor = 1;
   for(uint8_t i = 0; i<letter_count; i++){
     devisor *= 10;
   }
   uint16_t remainder = count % devisor;
-  uint8_t display;
+  uint16_t display;
 
   // Set Characters
   for(uint8_t i=letter_count; i>0; i--){
@@ -39,14 +39,19 @@ void Counter::run(Sign &sign, uint8_t layer){
 bool Counter::pushChar(char character, uint8_t ci){
   int32_t val = 0xFFFF;
   String desc;
+  uint16_t count_step = 100;
+  String count_str = F("Count");
 
   switch(character){
-    case ']': val = ++step;
-      desc = STEP_SIZE_STR; break;
-    case '[': val = --step;
-      desc = STEP_SIZE_STR; break;
-    case '/': this -> randomize(ci);
-      val = step;
+    case 'u': val = 1; desc = RESET_STR; this->reset(); break;
+    case ']': val = ++step; desc = STEP_SIZE_STR; break;
+    case '[': val = --step; desc = STEP_SIZE_STR; break;
+
+    case '}': val = (count += count_step);
+      desc = count_str; break;
+    case '{': val = (count -= count_step);
+      desc = count_str; break;
+    case '/': this -> randomize(ci); val = step;
       desc = RANDOM_STR; break;
   }
   return( usedSetting(desc, val) );

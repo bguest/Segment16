@@ -59,6 +59,24 @@ void Letter::setColor(uint8_t layer, CHSV color){
   }
 }
 
+CHSV16 Letter::getHsv16(uint8_t layer){
+  bool on = (layer == 0);
+  for(uint8_t i=0; i<16; i++){
+    Segment curr_seg = *segments[i];
+    if(curr_seg.isOn == on){
+      return curr_seg.getHsv16();
+    }
+  }
+  return segments[0] -> getHsv16();
+}
+
+void Letter::setHsv16(uint8_t layer, CHSV16 color){
+  for(uint8_t i=0; i<16; i++){
+    Segment curr_seg = *segments[i];
+    curr_seg.setHsv16(layer, color);
+  }
+}
+
 void Letter::toArray(CRGB array[], uint16_t &currIdx){
   for(uint16_t i=0; i<16; i++){
     segments[i] -> toArray(array, currIdx);

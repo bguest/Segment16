@@ -20,6 +20,9 @@ class Segment {
     void toArray(CRGB array[], uint16_t &currIdx);
     void setColor(CHSV color);
     void setColor(uint8_t layer, CHSV color);
+    void setHsv16(CHSV16 color);
+    CHSV16 getHsv16();
+    void setHsv16(uint8_t layer, CHSV16 color);
     uint8_t index;
     char orientation();
 

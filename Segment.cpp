@@ -39,6 +39,23 @@ void Segment::setColor(CHSV color){
  }
 }
 
+CHSV16 Segment::getHsv16(){
+  return pixels[0] -> getHsv16();
+}
+
+void Segment::setHsv16(uint8_t layer, CHSV16 color){
+  bool on = (layer == 0);
+  if(isOn == on){
+    this -> setHsv16(color);
+  }
+}
+
+void Segment::setHsv16(CHSV16 color){
+  for(uint8_t i=0; i< _length; i++){
+    pixels[i] -> setHsv16(color);
+ }
+}
+
 char Segment::orientation(){
   switch(index){
     case 0: case 1:

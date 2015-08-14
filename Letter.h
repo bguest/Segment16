@@ -43,6 +43,8 @@ class Letter {
     void setChar(char character);
     void setLayer(uint8_t layer, bool isOn);
     void setColor(uint8_t layer, CHSV color);
+    CHSV16 getHsv16(uint8_t layer);
+    void setHsv16(uint8_t layer, CHSV16 color);
     char currentChar;
 
   private:

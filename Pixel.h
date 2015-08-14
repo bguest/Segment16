@@ -2,6 +2,7 @@
 #define PIXEL_H
 
 #include "FastLED.h"
+#include "Color16.h"
 
 class Pixel {
 
@@ -12,9 +13,11 @@ class Pixel {
     void addHue16(int16_t deltaHue);
     uint16_t getHue16();
     CHSV getColor();
+    CHSV16 getHsv16();
+    void setHsv16(CHSV16 clr);
 
   private:
-    uint16_t hsvColor[3];
+    CHSV16 hsv16;
     CHSV color;
 };
 #endif

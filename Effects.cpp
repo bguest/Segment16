@@ -20,6 +20,7 @@
 #include "effects/FadeTo.cpp"
 #include "effects/WavePixels.cpp"
 #include "effects/LinesOn.cpp"
+#include "effects/Clock.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 
@@ -186,7 +187,7 @@ void Effects::updateTextEffect(){
   switch(cTextEffect){
     case RANDOM_ON:
       textEffect = &randomOn;
-      desc = "Random Segs,\nkeys:[]kjor";
+      desc = F("Random Segs,\nkeys:[]kjor");
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
@@ -207,6 +208,10 @@ void Effects::updateTextEffect(){
     case LINES_ON:
       textEffect = &linesOn;
       desc = "Lines On\nkeys:[]/";
+      break;
+    case CLOCK:
+      textEffect = &clock;
+      desc = "Clock\nkeys:oO[]{}/";
       break;
     default:
       textEffect = &nullEffect;

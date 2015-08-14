@@ -65,8 +65,13 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
 
     case 'w': val = (color[ci].hue += hueStep[ci]);
               desc = "Jump forward"; break;
-    case 'e': val = (color[ci].hue -= hueStep[ci]);
+    case 'W': val = (color[ci].hue -= hueStep[ci]);
               desc = "Jump backward"; break;
+
+    case 'e': val = (hueA[ci] += ampStep);
+              desc = HUE_AMP_STR; break;
+    case 'E': val = (hueA[ci] -= ampStep);
+              desc = HUE_AMP_STR; break;
 
     case 'f': val = (cycleTime[ci] -= cycleStep);
               desc = FADE_SPEED_STR; break;

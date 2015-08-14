@@ -17,6 +17,7 @@
 #include "effects/FadeTo.h"
 #include "effects/WavePixels.h"
 #include "effects/LinesOn.h"
+#include "effects/Clock.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
@@ -24,7 +25,8 @@
 #define RANDOM_LETTERS 3
 #define WORDS_ENTER 4
 #define LINES_ON 5
-#define TEXT_EFFECTS_COUNT 6
+#define CLOCK 6
+#define TEXT_EFFECTS_COUNT 7
 
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
@@ -49,6 +51,7 @@ class Effects {
     Counter counter;
     RandomLetters randomLetters;
     WordsEnter wordsEnter;
+    Clock clock;
     LinesOn linesOn;
 
     SolidColor solidColor;

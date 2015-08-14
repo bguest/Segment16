@@ -1,7 +1,7 @@
 #include "Pixel.h"
 
 Pixel::Pixel(){
-  color = CHSV();
+  color = CHSV(0,0,0);
 };
 
 void Pixel::setColor(CHSV clr){

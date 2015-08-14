@@ -4,6 +4,12 @@
 #include <stdint.h>
 #include "Pixel.h"
 
+#define VERTICAL 0
+#define DIAGONAL_RIGHT 1
+#define HORIZONTAL 2
+#define DIAGONAL_LEFT 3
+#define ORIENTATION_COUNT 4
+
 class Segment {
   public:
     Segment();
@@ -14,6 +20,8 @@ class Segment {
     void toArray(CRGB array[], uint16_t &currIdx);
     void setColor(CHSV color);
     void setColor(uint8_t layer, CHSV color);
+    uint8_t index;
+    char orientation();
 
   private:
     uint8_t _length;

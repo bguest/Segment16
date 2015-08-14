@@ -19,9 +19,9 @@
 #include "effects/RainbowSegment.cpp"
 #include "effects/FadeTo.cpp"
 #include "effects/WavePixels.cpp"
+#include "effects/LinesOn.cpp"
 
 const uint16_t CYCLE_TIME = 5;
-const unsigned long RANDOMIZE_TIME = 60*1000;
 
 Effects::Effects(){
   for(uint8_t i=0; i<LAYER_COUNT; i++){
@@ -36,7 +36,7 @@ Effects::Effects(){
 void Effects::run(Sign &sign){
   unsigned long time = millis();
   if(time - lastRun < CYCLE_TIME){ return; }
-  if(time - lastTouched > RANDOMIZE_TIME){
+  if(time - lastTouched > randomizeTime){
     lastTouched = time;
     this -> randomize();
   }
@@ -134,6 +134,8 @@ void Effects::reset(){
   lastTouched = 0;
   textCycleTime = 500;
   changeText = false;
+  randomizeTime = 120*1000;
+  randomizeLayer = 0;
 
   textEffect -> reset();
   for(uint8_t i=1; i<LAYER_COUNT; i++){
@@ -141,14 +143,19 @@ void Effects::reset(){
   }
 }
 void Effects::randomize(){
-  cTextEffect = (uint8_t)random(TEXT_EFFECTS_COUNT - 1);
-  this -> updateTextEffect();
-  textEffect -> randomize(0);
 
-  for(uint8_t i=0; i<LAYER_COUNT; i++){
-    cColorEffect[i] = (uint8_t)random(COLOR_EFFECTS_COUNT - 1);
-    this -> updateColorEffect(i);
-    colorEffect[i] -> randomize(i);
+  if(randomizeLayer == 2){
+    cTextEffect = (uint8_t)random(TEXT_EFFECTS_COUNT - 1);
+    this -> updateTextEffect();
+    textEffect -> randomize(0);
+  }else{
+    cColorEffect[randomizeLayer] = (uint8_t)random(COLOR_EFFECTS_COUNT - 1);
+    this -> updateColorEffect(randomizeLayer);
+    colorEffect[randomizeLayer] -> randomize(randomizeLayer);
+  }
+  randomizeLayer++;
+  if(randomizeLayer > 2){
+    randomizeLayer = 0;
   }
 }
 
@@ -193,6 +200,10 @@ void Effects::updateTextEffect(){
     case WORDS_ENTER:
       textEffect = &wordsEnter;
       desc = "Words Enter\nkeys:kjKJ";
+      break;
+    case LINES_ON:
+      textEffect = &linesOn;
+      desc = "Lines On\nkeys:[]/";
       break;
     default:
       textEffect = &nullEffect;
@@ -249,7 +260,7 @@ void Effects::updateColorEffect(uint8_t ci){
       break;
     case WAVE_PIXELS:
       colorEffect[ci] = &wavePixels;
-      desc = "FadeTo\nKeys:cCvVbBeEfs";
+      desc = "Wave Pixels\nKeys:cCvVbBeEfs";
       break;
   }
   Serial.println(desc);

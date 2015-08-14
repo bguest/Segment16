@@ -28,7 +28,7 @@ void RandomOn::run(Sign &sign, uint8_t layer){
     sign.setLayer(BACKGROUND_LAYER, false);
   }
   for(uint8_t i = 0; i < onCount; i++){
-    uint8_t rand = random(0,seg_count);
+    uint8_t rand = random8(0,seg_count);
     sign.segments[rand] -> isOn = turnOn;
   }
 }

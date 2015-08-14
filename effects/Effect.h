@@ -1,3 +1,4 @@
+
 #ifndef EFFECT_H
 #define EFFECT_H
 
@@ -18,6 +19,7 @@ const String RESET_STR = F("Reset");
 const String INVERTED_STR = F("Inverted");
 const String RANDOM_STR = F("Randomized");
 const String HUE_AMP_STR = F("Hue Amplitude");
+const String ORIENT_STR = F("Orientation");
 
 class Effect{
   public:

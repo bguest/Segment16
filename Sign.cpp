@@ -17,10 +17,10 @@ Sign::Sign(void){
   }
   //uint16_t pixel_count = this -> pixelCount();
 
-  characters[0] = 'H';
-  characters[1] = 'I';
-  characters[2] = 'H';
-  characters[3] = 'I';
+  characters[0] = 'D';
+  characters[1] = 'A';
+  characters[2] = 'D';
+  characters[3] = 'A';
 };
 
 void Sign::pushChar(char character){

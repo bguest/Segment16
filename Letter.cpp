@@ -7,6 +7,7 @@ Letter::Letter(uint8_t lengths[16]){
   for(uint8_t i=0; i<16; i++){
     _lengths[i] = lengths[i];
     segments[i] = new Segment(lengths[i]);
+    segments[i] -> index = i;
   }
 
 };

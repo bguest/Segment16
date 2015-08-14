@@ -6,7 +6,8 @@ RainbowSegment::RainbowSegment(){
 }
 
 void RainbowSegment::reset(){
-  isStatic = false;
+  isStatic = true;
+  changeOnBeat = true;
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     color[i] = CHSV(128*i,255,255);
     hueStep[i] = 40;
@@ -14,15 +15,20 @@ void RainbowSegment::reset(){
 }
 
 void RainbowSegment::randomize(uint8_t ci){
-  isStatic = !isStatic;
+  isStatic = (bool)random8(0,1);
+  changeOnBeat = true;
   this -> randomizeColor(ci);
-  hueStep[ci] = random(-120,120);
+  hueStep[ci] = random8(-120,120);
 }
 
 void RainbowSegment::run(Sign &sign, uint8_t layer){
   if( sign.textChanged ){ this -> signWasUpdated(sign);}
   uint8_t segment_count = sign.segmentCount();
   CHSV curr_color = color[layer];
+
+  if(changeOnBeat && sign.onBeat){
+    color[layer].hue += hueStep[layer];
+  }
 
   for(uint8_t i=0; i<segment_count; i++){
     Segment* curr_segment = sign.segments[i];
@@ -50,6 +56,8 @@ bool RainbowSegment::pushChar(char character, uint8_t ci){
               desc = STEP_SIZE_STR; break;
     case 'd': val = (isStatic = !isStatic);
               desc = "Static"; break;
+    case 'D': val = (changeOnBeat = !changeOnBeat);
+              desc = ON_BEAT_STR; break;
     case 'x': this -> randomize(ci);
               val = hueStep[ci];
               desc = RANDOM_STR; break;

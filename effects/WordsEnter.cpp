@@ -69,7 +69,7 @@ bool WordsEnter::pushChar(char character, uint8_t ci){
   String desc;
 
   switch(character){
-    case 'r': this -> softReset();
+    case 'u': this -> softReset();
       desc = RESET_STR; break;
     case 'K': val = ++numBeats;
       desc = STEP_SIZE_STR; break;

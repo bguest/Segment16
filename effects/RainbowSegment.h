@@ -14,6 +14,7 @@ class RainbowSegment : public Effect{
 
   private:
     bool isStatic;
+    bool changeOnBeat;
     int8_t hueStep[LAYER_COUNT];
 };
 #endif

@@ -18,6 +18,7 @@ class Sign{
     Segment *segments[16*LETTERS_COUNT];
     char characters[LETTERS_COUNT];
     bool textChanged;
+    bool onBeat;
     void sanitize();
 
   private:

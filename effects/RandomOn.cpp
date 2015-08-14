@@ -12,7 +12,7 @@ void RandomOn::reset(){
 }
 
 void RandomOn::randomize(uint8_t ci){
-  onCount = random(0, UINT8_MAX);
+  onCount = random(0, UINT8_MAX/2);
   shouldReset = true;
   turnOn = true;
 }
@@ -40,7 +40,7 @@ bool RandomOn::pushChar(char character, uint8_t ci){
   switch(character){
     case 'o': val = (turnOn = !turnOn);
               desc = SET_SEGS_STR; break;
-    case 'r': shouldReset = true; val = 1;
+    case 'u': shouldReset = true; val = 1;
               desc = RESET_STR; break;
 
     case ']': val = (++onCount);

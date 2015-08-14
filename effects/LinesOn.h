@@ -14,6 +14,8 @@ class LinesOn : public Effect{
 
   private:
     char orientation;
+    bool changeOnBeat;
+    void incOrient();
 
 };
 

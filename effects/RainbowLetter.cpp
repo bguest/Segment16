@@ -6,7 +6,8 @@ RainbowLetter::RainbowLetter(){
 }
 
 void RainbowLetter::reset(){
-  isStatic = false;
+  isStatic = true;
+  changeOnBeat = true;
   for(uint8_t i=0; i<LAYER_COUNT; i++){
     color[i] = CHSV(128*i,255,255);
     hueStep[i] = 40;
@@ -15,8 +16,9 @@ void RainbowLetter::reset(){
 
 void RainbowLetter::randomize(uint8_t ci){
   this -> randomizeColor(ci);
-  isStatic = !isStatic;
-  hueStep[ci] = random(-120,120);
+  isStatic = (bool)random8(0,1);
+  changeOnBeat = true;
+  hueStep[ci] = random8(-120,120);
 }
 
 void RainbowLetter::run(Sign &sign, uint8_t layer){
@@ -24,6 +26,10 @@ void RainbowLetter::run(Sign &sign, uint8_t layer){
 
   uint8_t letters_count = sign.letterCount();
   CHSV curr_color = color[layer];
+
+  if(changeOnBeat && sign.onBeat){
+    color[layer].hue += hueStep[layer];
+  }
 
   for(uint8_t i=0; i<letters_count; i++){
     Letter* curr_letter = sign.letters[i];
@@ -51,7 +57,9 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
     case 'f': val = (hueStep[ci] += HUE_STEP);
               desc = STEP_SIZE_STR; break;
     case 'd': val = (isStatic = !isStatic);
-              desc = "Static"; break;
+              desc = F("Static"); break;
+    case 'D': val = (changeOnBeat = !changeOnBeat);
+              desc = ON_BEAT_STR; break;
 
     case 'x': this -> randomize(ci);
               val = hueStep[ci];

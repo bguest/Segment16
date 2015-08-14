@@ -49,10 +49,13 @@ void Effects::run(Sign &sign){
     sign.textChanged = false;
   }
 
-  if( time - textLastRun > textCycleTime ||
-      textEffect == &basicTyping){
-    textEffect -> run(sign, 0);
+  sign.onBeat = false;
+  if( time - textLastRun > textCycleTime){
+    sign.onBeat = true;
     textLastRun = time;
+  }
+  if( sign.onBeat || textEffect == &basicTyping){
+    textEffect -> run(sign, 0);
   }
 
   for(uint8_t i=0; i<LAYER_COUNT; i++){

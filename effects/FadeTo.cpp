@@ -28,14 +28,17 @@ void FadeTo::run(Sign &sign, uint8_t ci){
   CHSV clr = color[ci];
   uint16_t seg_speed;
   uint16_t hue_final = (uint16_t)(color[ci].hue << 8);
+  CHSV16 seg_color;
 
   for(uint8_t i=0; i< seg_count; i++){
     Segment currSeg = *sign.segments[i];
     if(currSeg.isOn == on){
-      seg_speed = (hue_final - segHue[i])/fadeTime;
-      segHue[i] += seg_speed;
-      clr.hue = (uint8_t)(segHue[i] >> 8);
-      currSeg.setColor(clr);
+      seg_color = currSeg.getHsv16();
+      seg_speed = (hue_final - seg_color.hue)/fadeTime;
+      seg_color.hue += seg_speed;
+      seg_color.sat = clr.sat << 8;
+      seg_color.val = clr.val << 8;
+      currSeg.setHsv16(seg_color);
     }
 
   }

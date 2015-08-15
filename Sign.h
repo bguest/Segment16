@@ -12,6 +12,7 @@ class Sign{
     uint16_t segmentCount();
     void setWord(String word);
     void pushChar(char);
+    void setCharacters();
     void pushChar(char, bool);
     void setLayer(uint8_t layer, bool isOn);
     Letter *letters[LETTERS_COUNT];

@@ -21,8 +21,8 @@ void RainbowLetter::randomize(uint8_t ci){
   isStatic = (bool)random8(0,1);
   changeOnBeat = true;
   hueStep[ci] = random8(-120,120);
-  cycleTime[ci] = random16(200,10000);
-  hueA[ci] = random16(INT16_MAX);
+  cycleTime[ci] = random16(200,4000);
+  hueA[ci] = random16(INT16_MAX/2);
 }
 
 void RainbowLetter::run(Sign &sign, uint8_t ci){
@@ -59,7 +59,7 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
   String desc;
 
   const uint16_t ampStep = 200;
-  const uint8_t cycleStep = 10;
+  const uint8_t cycleStep = 20;
 
   switch(character){
 
@@ -76,6 +76,7 @@ bool RainbowLetter::pushChar(char character, uint8_t ci){
     case 'f': val = (cycleTime[ci] -= cycleStep);
               desc = FADE_SPEED_STR; break;
     case 's': val = (cycleTime[ci] += cycleStep);
+              desc = FADE_SPEED_STR; break;
 
     case 'S': val = (hueStep[ci] -= HUE_STEP);
               desc = STEP_SIZE_STR; break;

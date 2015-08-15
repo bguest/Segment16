@@ -45,6 +45,12 @@ void Sign::pushChar(char character, bool shouldPrint){
   }
 }
 
+void Sign::setCharacters(){
+  for(uint8_t i=0; i<LETTERS_COUNT; i++){
+    this -> letters[i] -> setChar(characters[i]);
+  }
+}
+
 void Sign::setLayer(uint8_t layer, bool isOn){
   for(uint8_t i=0; i<LETTERS_COUNT; i++){
     letters[i] -> setLayer(layer, isOn);
@@ -73,11 +79,13 @@ void Sign::_setWord(String word, uint8_t size){
   }
 }
 
-#define BAD_WORDS_COUNT 10
+#define BAD_WORDS_COUNT 18
 const String badWords[BAD_WORDS_COUNT] = {
   //"TEST"
   "CUNT", "GOOK", "FUCK", "SHIT", "FAGG",
-  "FAG ", " FAG", "COON", "HEEB", "SLUT"
+  "FAG ", " FAG", "COON", "HEEB", "SLUT",
+  "COON", "KKK ", " KKK", "KYKE", "SPIC",
+  "SPIK", "TWAT", "HOMO"
 };
 
 void Sign::sanitize(){

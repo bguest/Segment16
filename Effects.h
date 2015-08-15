@@ -18,6 +18,7 @@
 #include "effects/WavePixels.h"
 #include "effects/LinesOn.h"
 #include "effects/Clock.h"
+#include "effects/RandomScroll.h"
 
 #define BASIC_TYPING 0
 #define RANDOM_ON 1
@@ -26,7 +27,8 @@
 #define WORDS_ENTER 4
 #define LINES_ON 5
 #define CLOCK 6
-#define TEXT_EFFECTS_COUNT 7
+#define RANDOM_SCROLL 7
+#define TEXT_EFFECTS_COUNT 8
 
 #define SOLID_COLORS 0
 #define SOLID_FADE 1
@@ -53,6 +55,7 @@ class Effects {
     WordsEnter wordsEnter;
     Clock clock;
     LinesOn linesOn;
+    RandomScroll randomScroll;
 
     SolidColor solidColor;
     RandomFade randomFade;

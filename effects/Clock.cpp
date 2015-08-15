@@ -11,6 +11,8 @@ void Clock::reset(){
   minutesOffset = 0;
   hoursOffset = 0;
   lastUpdated = 0;
+  timeAmplitude = 0;
+  dilationPeriod = 0;
 }
 
 void Clock::run(Sign &sign, uint8_t layer){
@@ -31,20 +33,30 @@ void Clock::run(Sign &sign, uint8_t layer){
 
   if(isClock){
     display[0] = minutes;
-    display[1] = hours;
+    display[1] = hours + 1;
   }else{
     display[0] = seconds % 60;
     display[1] = minutes;
   }
 
   uint8_t letterIdx = LETTERS_COUNT - 1;
+  char to_letter;
+  uint8_t dspl;
+
   for(uint8_t set=0; set < 2; set++){
+
     uint8_t devisor = 100;
     uint8_t remainder = display[set] % devisor;
-    uint8_t dspl;
+
     for(uint8_t ltr=2; ltr>0; ltr--){
+
       dspl = remainder % 10;
-      sign.letters[letterIdx] -> setChar(char(dspl + '0'));
+      if(dspl == 0 && letterIdx == 0){
+        to_letter = ' ';
+      }else{
+        to_letter = char(dspl + '0');
+      }
+      sign.letters[letterIdx] -> setChar(to_letter);
       letterIdx--;
       remainder /= 10;
     }
@@ -55,7 +67,7 @@ bool Clock::pushChar(char character, uint8_t ci){
   int32_t val = 0xFFFF;
   String desc;
   String hours_off_str = F("Hours Offset");
-  String minutes_off_str = F("Minimum Offset");
+  String minutes_off_str = F("Minutes Offset");
   String step_time_str = F("Millis / Second");
 
   switch(character){
@@ -70,6 +82,7 @@ bool Clock::pushChar(char character, uint8_t ci){
     case 'O': val = (is24Hour = !is24Hour); desc = F("24 Hour Time"); break;
 
   }
+  lastUpdated = 0;
   return( usedSetting(desc, val) );
 }
 

@@ -15,7 +15,7 @@ void RandomLetters::run(Sign &sign, uint8_t layer){
   char random_char;
 
   for(uint8_t i=0; i < letters_count; i++){
-    random_char = 'A' + random(25);
+    random_char = ' ' + random(95);
     sign.letters[i] -> setChar(random_char);
   }
 

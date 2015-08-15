@@ -21,6 +21,7 @@
 #include "effects/WavePixels.cpp"
 #include "effects/LinesOn.cpp"
 #include "effects/Clock.cpp"
+#include "effects/RandomScroll.cpp"
 
 const uint16_t CYCLE_TIME = 5;
 
@@ -191,31 +192,35 @@ void Effects::updateTextEffect(){
       break;
     case BASIC_TYPING:
       textEffect = &basicTyping;
-      desc = "Basic Typing";
+      desc = F("Basic Typing");
       break;
     case COUNTER:
       textEffect = &counter;
-      desc = "Counter\nkeys:u[]{}kj";
+      desc = F("Counter\nkeys:u[]{}kj");
       break;
     case RANDOM_LETTERS:
       textEffect = &randomLetters;
-      desc = "Random Letters\nkeys:kj";
+      desc = F("Random Letters\nkeys:kj");
       break;
     case WORDS_ENTER:
       textEffect = &wordsEnter;
-      desc = "Words Enter\nkeys:kjKJ";
+      desc = F("Words Enter\nkeys:kjKJ");
       break;
     case LINES_ON:
       textEffect = &linesOn;
-      desc = "Lines On\nkeys:[]/";
+      desc = F("Lines On\nkeys:kj[]/D");
       break;
     case CLOCK:
       textEffect = &clock;
-      desc = "Clock\nkeys:oO[]{}/";
+      desc = F("Clock\nkeys:oO[]{}/");
+      break;
+    case RANDOM_SCROLL:
+      textEffect = &randomScroll;
+      desc = F("Random Scroll\nkeys:kj");
       break;
     default:
       textEffect = &nullEffect;
-      desc = "ERROR";
+      desc = F("ERROR");
   }
   Serial.println(desc);
   Serial1.print('\n');

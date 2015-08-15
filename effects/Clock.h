@@ -15,6 +15,8 @@ class Clock : public Effect{
     int16_t minutesOffset;
     int16_t hoursOffset;
     unsigned long lastUpdated;
+    int16_t timeAmplitude;
+    uint16_t dilationPeriod;
 };
 
 #endif

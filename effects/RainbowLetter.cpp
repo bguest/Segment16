@@ -35,7 +35,7 @@ void RainbowLetter::run(Sign &sign, uint8_t ci){
     color[ci].hue += hueStep[ci];
   }
 
-  uint16_t angle = (millis() % cycleTime[ci])*(UINT16_MAX / cycleTime[ci]);
+  uint16_t angle = (millis() % cycleTime[ci])*UINT16_MAX/cycleTime[ci];
   int16_t delta_hue = hueA[ci] * sin16(angle)/UINT16_MAX;
 
   uint16_t hueStep16 = hueStep[ci] << 8;

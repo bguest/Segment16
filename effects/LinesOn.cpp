@@ -50,7 +50,7 @@ bool LinesOn::pushChar(char character, uint8_t ci){
     case '/': this -> randomize(ci);
               val = orientation;
               desc = RANDOM_STR; break;
-    case 'D': val = (changeOnBeat = !changeOnBeat);
+    case 'p': val = (changeOnBeat = !changeOnBeat);
               desc = ON_BEAT_STR; break;
   }
   return( usedSetting(desc, val) );

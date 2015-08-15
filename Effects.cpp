@@ -208,11 +208,11 @@ void Effects::updateTextEffect(){
       break;
     case LINES_ON:
       textEffect = &linesOn;
-      desc = F("Lines On\nkeys:kj[]/D");
+      desc = F("Lines On\nkeys:kj[]/p");
       break;
     case CLOCK:
       textEffect = &clock;
-      desc = F("Clock\nkeys:oO[]{}/");
+      desc = F("Clock\nkeys:oO[]{}7&8*u");
       break;
     case RANDOM_SCROLL:
       textEffect = &randomScroll;
@@ -265,7 +265,7 @@ void Effects::updateColorEffect(uint8_t ci){
       break;
     case RAINBOW_SEGMENT:
       colorEffect[ci] = &rainbowSegment;
-      desc = "Rainbow Segment\nKeys:cCvVbBrefsd";
+      desc = "Rainbow Segment\nKeys:cCvVbBrwefsFSdDx";
       break;
     case FADE_TO:
       colorEffect[ci] = &fadeTo;

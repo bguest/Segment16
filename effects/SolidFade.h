@@ -15,7 +15,7 @@ class SolidFade : public Effect{
   private:
     uint16_t fadeHue[LAYER_COUNT];
     uint16_t fadeSpeed[LAYER_COUNT];
-
+    uint8_t letterStep[LAYER_COUNT];
     int16_t incSegSpeed(bool isPositive, uint8_t layer);
 };
 #endif

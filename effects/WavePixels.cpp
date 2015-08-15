@@ -20,7 +20,7 @@ void WavePixels::randomize(uint8_t ci){
 }
 
 void WavePixels::run(Sign &sign, uint8_t ci){
-  uint16_t angle = (millis() % cycleTime[ci])*(UINT16_MAX / cycleTime[ci]);
+  uint16_t angle = (millis() % cycleTime[ci])*UINT16_MAX/cycleTime[ci];
 
   int16_t delta_hue = hueA[ci] * sin16(angle)/UINT16_MAX;
   uint16_t seg_count = sign.segmentCount();
@@ -69,4 +69,16 @@ bool WavePixels::pushChar(char character, uint8_t ci){
   }
 
   return( usedSetting(desc, val) );
+}
+
+void WavePixels::invertColors(){
+  Effect::invertColors();
+
+  uint16_t tempCycle = cycleTime[0];
+  cycleTime[0] = cycleTime[1];
+  cycleTime[1] = tempCycle;
+
+  int16_t tempHueA = hueA[0];
+  hueA[0] = hueA[1];
+  hueA[1] = tempHueA;
 }

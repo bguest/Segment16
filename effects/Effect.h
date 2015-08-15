@@ -18,7 +18,7 @@ const String VAL_STR = F("Brightness");
 const String RESET_STR = F("Reset");
 const String INVERTED_STR = F("Inverted");
 const String RANDOM_STR = F("Randomized");
-const String HUE_AMP_STR = F("Hue Amplitude");
+const String HUE_AMP_STR = F("Hue Amp");
 const String ORIENT_STR = F("Orientation");
 const String ON_BEAT_STR = F("Change on Beat");
 

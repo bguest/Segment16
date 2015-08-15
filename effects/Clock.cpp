@@ -11,8 +11,8 @@ void Clock::reset(){
   minutesOffset = 0;
   hoursOffset = 0;
   lastUpdated = 0;
-  timeAmplitude = 0;
-  dilationPeriod = 0;
+  timeAmpMinutes = 0;
+  dilationPeriodMinutes = 60;
 }
 
 void Clock::run(Sign &sign, uint8_t layer){
@@ -26,7 +26,13 @@ void Clock::run(Sign &sign, uint8_t layer){
   uint8_t hour_per_day = (is24Hour ? 24 : 12);
   uint8_t minutes_per = (isClock ? 60 : 100);
 
-  unsigned long seconds = time/stepTime + minutesOffset*60 + hoursOffset*3600;
+  unsigned long dilation_period = dilationPeriodMinutes * 60 * 1000;
+  int32_t time_amp_sec = timeAmpMinutes * 60;
+
+  uint16_t angle = (millis() % dilation_period)*UINT16_MAX/dilation_period;
+  int16_t delta_time = time_amp_sec * sin16(angle)/UINT16_MAX;
+
+  unsigned long seconds = time/stepTime + minutesOffset*60 + hoursOffset*3600 + delta_time;
   uint8_t minutes = (seconds/60) % minutes_per;
   uint8_t hours = (seconds/3600) % hour_per_day;
   uint8_t display[2];
@@ -69,6 +75,8 @@ bool Clock::pushChar(char character, uint8_t ci){
   String hours_off_str = F("Hours Offset");
   String minutes_off_str = F("Minutes Offset");
   String step_time_str = F("Millis / Second");
+  String time_period_str = F("Time Dilation Period (Min)");
+  String time_amp_str = F("Time Dilation Amplitude (Min)");
 
   switch(character){
     case 'u': val = 1; desc = RESET_STR; this->reset(); break;
@@ -80,6 +88,10 @@ bool Clock::pushChar(char character, uint8_t ci){
     case 'J': val = ++stepTime; desc = step_time_str; break;
     case 'o': val = (isClock = !isClock); desc = F("Clock Mode"); break;
     case 'O': val = (is24Hour = !is24Hour); desc = F("24 Hour Time"); break;
+    case '7': val = ++timeAmpMinutes; desc = time_amp_str; break;
+    case '&': val = --timeAmpMinutes; desc = time_amp_str; break;
+    case '8': val = ++dilationPeriodMinutes; desc = time_period_str; break;
+    case '*': val = --dilationPeriodMinutes; desc = time_period_str; break;
 
   }
   lastUpdated = 0;

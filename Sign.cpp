@@ -79,10 +79,10 @@ void Sign::_setWord(String word, uint8_t size){
   }
 }
 
-#define BAD_WORDS_COUNT 18
+#define BAD_WORDS_COUNT 16
 const String badWords[BAD_WORDS_COUNT] = {
   //"TEST"
-  "CUNT", "GOOK", "FUCK", "SHIT", "FAGG",
+  "CUNT", "GOOK", "FAGG",
   "FAG ", " FAG", "COON", "HEEB", "SLUT",
   "COON", "KKK ", " KKK", "KYKE", "SPIC",
   "SPIK", "TWAT", "HOMO"
